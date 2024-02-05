@@ -1,0 +1,88 @@
+* {
+  line-height: 1;
+  margin: 0;
+  box-sizing: border-box;
+  padding: 0;
+  border: 0;
+}
+
+:root {
+  /* colors */
+  --main-red: #C20114;
+  --main-black:#0C120C;
+  --dark-grey:#6D7275;
+  --light-grey:#C7D6D5;
+  --white-grey:#ECEBF3;
+  --main-white:#ffffff;
+  /* Font Family */
+  --font-family1:'Calibre','Inter','San Francisco','SF Pro Text',-apple-system,system-ui,sans-serif !important;
+  --font-family2: 'SF Mono','Fira Code','Fira Mono','Roboto Mono',monospace;
+}
+
+html {
+  font-size: 100%;
+  height: 100%;
+  line-height: 1.4;
+}
+
+body {
+  height: 100%;
+  width: 100%;
+  background-color: var(--main-black);
+  font-weight: 400;
+  overflow-x: hidden;
+  position: relative;
+  color: var(--main-white);
+  font-family: var(--font-family1);
+}
+
+ a{
+    text-decoration: none !important;
+ }
+
+  h1,h2,h3,h4,h5,h6{
+  margin:0;
+  padding: 0;
+  line-height: normal;
+ }
+
+ p,a,li,button,ul{
+  margin: 0;
+  padding:0;
+  line-height: normal;
+  text-decoration: none;
+ }
+
+ 
+ a:hover{
+  text-decoration: none;
+ }
+
+ img{
+  width: 100%;
+  height: auto;
+ }
+
+h1{
+  font-size: 64px !important;
+  font-family: var(--font-family2) !important;
+  font-weight: 700 !important;
+}
+
+h2{
+  font-size: 48px !important;
+  font-weight: 600 !important;
+  font-family: var(--font-family2) !important;
+}
+
+h3{
+  font-size: 36px !important;
+  font-weight: 500 !important;
+  font-family: var(--font-family2) !important;
+}
+
+p,div,a{
+  font-size: 18px !important;
+  font-family: var(--font-family2) !important;
+  color: var(--main-white);
+}
