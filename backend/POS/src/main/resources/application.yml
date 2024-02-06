@@ -1,0 +1,5 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://pos_cluster:NUdvzjbUpZv31wIM@poscluster.xtzsdsf.mongodb.net/?retryWrites=true&w=majority
+      database: POS
