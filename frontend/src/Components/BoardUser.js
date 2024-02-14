@@ -1,48 +1,30 @@
-import React, { Component } from "react";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchUserBoard } from '../Slice/userSlice';
 
-import UserService from "../Services/UserService";
-import EventBus from "../Common/EventBus";
+const BoardUser = () => {
+  const dispatch = useDispatch();
+  const { loading, content, error } = useSelector(state => state.user);
 
-export default class BoardUser extends Component {
-  constructor(props) {
-    super(props);
+  useEffect(() => {
+    dispatch(fetchUserBoard());
+  }, [dispatch]);
 
-    this.state = {
-      content: ""
-    };
+  if (loading) {
+    return <div>Loading...</div>;
   }
 
-  componentDidMount() {
-    UserService.getUserBoard().then(
-      response => {
-        this.setState({
-          content: response.data
-        });
-      },
-      error => {
-        this.setState({
-          content:
-            (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
-            error.message ||
-            error.toString()
-        });
-
-        if (error.response && error.response.status === 401) {
-          EventBus.dispatch("logout");
-        }
-      }
-    );
+  if (error) {
+    return <div>Error: {error}</div>;
   }
 
-  render() {
-    return (
-      <div className="container">
-        <header className="jumbotron">
-          <h3>{this.state.content}</h3>
-        </header>
-      </div>
-    );
-  }
-}
+  return (
+    <div className="container">
+      <header className="jumbotron">
+        <h3>{content}</h3>
+      </header>
+    </div>
+  );
+};
+
+export default BoardUser;

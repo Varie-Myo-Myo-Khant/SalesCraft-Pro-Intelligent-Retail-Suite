@@ -2,7 +2,10 @@ package com.Retails.POS.Models;
 
 
 import jakarta.persistence.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import javax.validation.constraints.NotBlank;
 
 @Document(collection = "products")
 public class Products {
@@ -11,36 +14,34 @@ public class Products {
     private String productName;
     private double productPrice;
     private String productImage;
-    private int stockQuantity;
-    private String category;
-    private String userId;
 
-    @Override
-    public String toString() {
-        return "Products{" +
-                "id='" + id + '\'' +
-                '}';
-    }
+    private int stockQuantity;
+
+    @DBRef
+    private User user;
+
+    @DBRef
+    private Category category;
 
     public Products() {
     }
 
-    public Products(String id, String productName, double productPrice, String productImage, int stockQuantity, String category, String userId) {
+    public Products(String id, String productName, double productPrice, String productImage, int stockQuantity, User user, Category category) {
         this.id = id;
         this.productName = productName;
         this.productPrice = productPrice;
         this.productImage = productImage;
         this.stockQuantity = stockQuantity;
+        this.user = user;
         this.category = category;
-        this.userId = userId;
     }
 
-    public String get_id() {
+    public String getId() {
         return id;
     }
 
-    public void set_id(String _id) {
-        this.id= id;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getProductName() {
@@ -75,19 +76,21 @@ public class Products {
         this.stockQuantity = stockQuantity;
     }
 
-    public String getCategory() {
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 
-    public String getUserId() {
-        return userId;
-    }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
 }

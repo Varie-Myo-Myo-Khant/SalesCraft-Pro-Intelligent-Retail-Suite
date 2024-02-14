@@ -1,47 +1,32 @@
 package com.Retails.POS.Models;
 
 import jakarta.persistence.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "category")
 public class Category {
     @Id
-    private String _id;
-    private String categoryImage;
+    private String id;
     private String category;
+
+    private String userId;
 
     public Category() {
     }
 
-    public Category(String _id, String categoryImage, String category) {
-        this._id = _id;
-        this.categoryImage = categoryImage;
+    public Category(String id, String category, String userId) {
+        this.id = id;
         this.category = category;
+        this.userId = userId;
     }
 
-    @Override
-    public String toString() {
-        return "Category{" +
-                "_id='" + _id + '\'' +
-                ", categoryImage='" + categoryImage + '\'' +
-                ", category='" + category + '\'' +
-                '}';
+    public String getId() {
+        return id;
     }
 
-    public String get_id() {
-        return _id;
-    }
-
-    public void set_id(String _id) {
-        this._id = _id;
-    }
-
-    public String getCategoryImage() {
-        return categoryImage;
-    }
-
-    public void setCategoryImage(String categoryImage) {
-        this.categoryImage = categoryImage;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getCategory() {
@@ -50,5 +35,13 @@ public class Category {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

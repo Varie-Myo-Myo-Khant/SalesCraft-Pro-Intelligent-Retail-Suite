@@ -1,13 +1,20 @@
-import { createStore, applyMiddleware } from "redux";
-import { composeWithDevTools } from "@redux-devtools/extension";
-import thunk from "redux-thunk";
-import rootReducer from "./Reducers";
+import { configureStore } from '@reduxjs/toolkit'; 
+import categoryReducer from './Slice/categorySlice';
+import authReducer from './Slice/authSlice';
+import userReducer from './Slice/userSlice';
+// import productReducer from '../features/product/productSlice'
+// import cartReducer from '../features/cart/cartSlice'
+// import orderReducer from '../features/order/orderSlice'
 
-const middleware = [thunk];
+export const store = configureStore({
+  reducer: {
+    auth:authReducer,
+    category: categoryReducer,
+    user: userReducer
+    // product: productReducer,
+    // cart: cartReducer,
+    // order: orderReducer
+  },
+});
 
-const store = createStore(
-  rootReducer,
-  composeWithDevTools(applyMiddleware(...middleware))
-);
 
-export default store;
