@@ -1,6 +1,7 @@
 import React, { useState } from 'react'; 
 
-function AddProduct () {
+export const AddProduct =()=> {
+    
     const [productName, setProductName] = useState("");
     const [image,setImage]=useState(null)
     function convertToBase64(e) {
@@ -55,4 +56,4 @@ function AddProduct () {
     );
 }
 
-export default AddProduct;
+ 

@@ -1,22 +1,27 @@
 import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router,Link, Routes, Route } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'; 
+
 import {Register} from './Pages/Register';
-import AddCategory from './Pages/AddCategory';
-import {HomeLogin} from './Pages/HomeLogin'; 
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { ProductMainPage } from './Pages/ProductMainPage';
+import {Login} from './Pages/Login'; 
+import {HomeDashboard} from './Pages/HomeDashboard';
+
 function App() {
   return (
     <>
   
-      <div className="App">
-          <Router>
+      <div>
+        <Router>
         <Routes>
-           <Route path='/' element={<HomeLogin/>} /> 
+          <Route path='/' element={<Login/>} /> 
           <Route path='/register' element={<Register />} />
-           <Route path='/category' element={<AddCategory />} />
-
+          <Route path='/homedashboard' element={<HomeDashboard />}>            
+            <Route path='product' element={<ProductMainPage />} />
+             {/* <Route path='history' element={<AddCategory />} /> */}
+          </Route>
            
           </Routes>     
           </Router>

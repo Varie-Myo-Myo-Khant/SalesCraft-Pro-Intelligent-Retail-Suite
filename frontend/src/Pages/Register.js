@@ -4,7 +4,7 @@ import { useNavigate,Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { useSelector, useDispatch} from 'react-redux'
 import { register, reset } from '../Slice/authSlice'
-import '../Styles/Home.css';
+import '../Styles/home.css';
 
 export const Register = () => {
 
@@ -97,7 +97,7 @@ export const Register = () => {
                     
                 </div>
                 <div className='newUserBgn'>
-                      <a>Already have an account? <span className='subText'><Link to="/">Log in here!</Link></span></a> 
+                      Already have an account? <span className='subText'><Link to="/">Log in here!</Link></span>
                   </div>
                 </Col>
                 

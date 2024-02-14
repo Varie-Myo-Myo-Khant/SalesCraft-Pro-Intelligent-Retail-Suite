@@ -5,6 +5,11 @@
   padding: 0;
   border: 0;
 }
+html {
+  font-size: 100%;
+  height: 100%;
+  line-height: 1.4;
+}
 
 :root {
   /* colors */
@@ -19,22 +24,27 @@
   --font-family2: 'SF Mono','Fira Code','Fira Mono','Roboto Mono',monospace;
 }
 
-html {
-  font-size: 100%;
-  height: 100%;
-  line-height: 1.4;
-}
-
 body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   height: 100%;
   width: 100%;
-  background-color: var(--main-black);
+  background-color: var(--main-white) !important;
   font-weight: 400;
   overflow-x: hidden;
   position: relative;
-  color: var(--main-white) !important;
+  color: var(--main-black) !important;
   font-family: var(--font-family1);
 }
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+
+
 
  a{
     text-decoration: none !important;
@@ -82,8 +92,9 @@ h3{
 }
 
 p,div,a{
-  font-size: 18px !important;
+  font-size: 16px;
   font-family: var(--font-family2) !important;
   color: var(--main-white);
 }
+
 

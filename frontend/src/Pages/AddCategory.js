@@ -1,7 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import AddProduct from "./AddProduct";
+import { useNavigate } from "react-router-dom"; 
 import {
   categoryCreate,
   handleChange,
@@ -11,9 +10,13 @@ import { logout, reset } from "../Slice/authSlice";
 import { toast } from "react-toastify";
 import { FaSignInAlt } from "react-icons/fa";
 import authHeader from '../Services/AuthHeader';
-const AddCategory = () => {
+ 
+
+
+export const AddCategory = () => {
+
   const { user } = useSelector((state) => state.auth);
-  const { categoryImage,category } = useSelector((store) => store.category);
+  const { category } = useSelector((store) => store.category);
   const dispatch = useDispatch();
   const navigate = useNavigate(); // Replace Redirect with useNavigate
 
@@ -64,6 +67,7 @@ const AddCategory = () => {
 
   return (
     <>
+     
       {/* Logout button */}
       <button className="logout-btn" onClick={logoutUser}>
         <FaSignInAlt className="logout-icon" />
@@ -79,7 +83,7 @@ const AddCategory = () => {
           <div className="form-input">
             <input
               type="name"
-              placeholder="Category Image"
+              placeholder="Category"
               
               name="category"
               value={category}
@@ -90,10 +94,11 @@ const AddCategory = () => {
             <button className="product-btn">Add Category</button>
           </div>
         </form>
-        <AddProduct/>
+       
+        
       </div>
     </>
   );
 };
 
-export default AddCategory;
+ 

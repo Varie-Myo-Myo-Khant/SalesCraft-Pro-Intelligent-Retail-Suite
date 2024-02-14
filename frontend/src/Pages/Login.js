@@ -1,13 +1,13 @@
 import {Container,Form,Button,Row,Col} from 'react-bootstrap';
 import React, { useState, useEffect } from "react";
-import '../Styles/Home.css';
+import '../Styles/home.css';
 import { toast } from "react-toastify";
 import { useNavigate,Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { login, reset } from "../Slice/authSlice";
 
 
-export const HomeLogin=()=>{
+export const Login=()=>{
 
   const [form, setForm] = useState({
     username: "",
@@ -27,7 +27,7 @@ export const HomeLogin=()=>{
       toast.error(message);
     }
     if (success || user) {
-      navigate("/category");
+      navigate("/homedashboard");
     }
     dispatch(reset());
   }, [error, success, user, message, navigate, dispatch]);
@@ -44,8 +44,8 @@ export const HomeLogin=()=>{
       password,
     };
    
-    dispatch(login(form));
-    navigate('/category')
+    dispatch(login(userData));
+    navigate('/homedashboard')
   };
  
    return (
@@ -87,7 +87,7 @@ export const HomeLogin=()=>{
                 </Form>
             </div>
             <div className='newUserBgn'>
-                <a>New User? <span className='subText'><Link to="/register">Create an account!</Link></span></a> 
+                New User? <span className='subText'><Link to="/register">Create an account!</Link></span>
             </div>
 
          </Col>
