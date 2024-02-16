@@ -1,59 +1,68 @@
 package com.Retails.POS.Controllers;
 
 import com.Retails.POS.Models.Category;
-import com.Retails.POS.Security.Service.UserDetailsImpl;
 import com.Retails.POS.Services.CategoryServices;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/api/category")
+@RequestMapping("api")
 public class CategoryController {
 
     @Autowired
     private CategoryServices categoryServices;
 
-    @GetMapping("/")
-    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
-    public ResponseEntity<List<Category>> getCategory() {
+    @GetMapping(value = "/category/")
+    public ResponseEntity<List<Category>> getCategory(){
         List<Category> categoryList = categoryServices.getAllCateogry();
         return ResponseEntity.ok(categoryList);
     }
 
-    @GetMapping("/search/{id}")
-    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
-    public ResponseEntity<Category> getCategoryById(@PathVariable String id) {
+    @GetMapping(value = "/category/{id}")
+    public ResponseEntity<Category> getCategoryById(@PathVariable String id){
         Category category = categoryServices.getCategoryById(id);
         return ResponseEntity.ok(category);
     }
 
-    @PostMapping("/")
-    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
-    public ResponseEntity<Category> saveCategory(@RequestBody Category category) {
-        Category savedCategory = categoryServices.saveCateogry(category);
-        return ResponseEntity.ok(savedCategory);
+    @PostMapping(value = "/category/")
+    public ResponseEntity<String> saveCategory(@RequestBody Category category){
+        // Set createdTime to current time
+        category.setCreatedTime(new Date());
+        categoryServices.saveCateogry(category);
+        return ResponseEntity.ok(category.getId());
     }
 
-
-    @PutMapping("/update/{id}")
-    public ResponseEntity<Category> updateCategory(@RequestBody Category category,
-                                                   @PathVariable String id) {
-
-        category.setId(id);
-        Category updatedCategory = categoryServices.saveCateogry(category);
-        return ResponseEntity.ok(updatedCategory);
+    @GetMapping(value = "/category/search")
+    public ResponseEntity<List<Category>>  getCategoryByName(@RequestParam(name = "category") String category){
+        List<Category> categoryList=categoryServices.searchByCategory(category);
+        return ResponseEntity.ok(categoryList);
     }
 
-    @DeleteMapping("/delete/{id}")
-    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
-    public ResponseEntity<?> deleteCategory(@PathVariable String id) {
+    @PutMapping(value = "/category/{id}")
+    public ResponseEntity<Category> updateCategory(@RequestBody Category category, @PathVariable String id){
+        Category existingCategory = categoryServices.getCategoryById(id);
+        if (existingCategory != null) {
+            // Update existingCategory fields with category fields
+            existingCategory.setCategory(category.getCategory());
+            existingCategory.setCategoryImage(category.getCategoryImage());
+            existingCategory.setUserId(category.getUserId());
+            // Update updatedTime to current time
+            existingCategory.setUpdatedTime(new Date());
+            Category updatedCategory = categoryServices.saveCateogry(existingCategory);
+            return ResponseEntity.ok(updatedCategory);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping(value = "/category/{id}")
+    public ResponseEntity<String> deleteCategory(@PathVariable String id){
         categoryServices.deleteCategory(id);
-        return ResponseEntity.ok("Category deleted successfully");
+        return ResponseEntity.ok("Ok");
     }
 }

@@ -6,11 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("api/")
+@RequestMapping("api")
 public class ProductsController {
 
     @Autowired
@@ -38,9 +39,17 @@ public class ProductsController {
         return ResponseEntity.ok(product);
     }
 
+    //Retrieve product by category
+    @GetMapping(value="/product/category/{category}")
+    public ResponseEntity<List<Products>> filterProductByCategory(@PathVariable String category){
+        List<Products> product = productsServices.findByProductCategory(category);
+        return ResponseEntity.ok(product);
+    }
     //add new product
     @PostMapping(value = "/product/")
     public ResponseEntity<String> saveProduct(@RequestBody Products products){
+        // Set createdTime to current time
+        products.setCreatedTime(new Date());
         productsServices.saveProduct(products);
         return ResponseEntity.ok(productsServices.toString());
     }
@@ -49,6 +58,7 @@ public class ProductsController {
     @PutMapping(value = "/product/{id}")
     public ResponseEntity<Products> updateProduct(@RequestBody Products products, @PathVariable String id){
         products.setId(id);
+        products.setUpdatedTime(new Date());
         productsServices.saveProduct(products);
         return ResponseEntity.ok(products);
     }

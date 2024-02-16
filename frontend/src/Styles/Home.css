@@ -44,7 +44,7 @@
 }
 
 button.btn.btn-primary {
-    width: 340px;
+    width: 100%;
     --bs-btn-bg:var(--main-red);
     margin-top: 20px !important;
 }
@@ -52,7 +52,9 @@ button.btn.btn-primary {
 
 button.btn.btn-primary:hover {
     background-color: transparent;
+    color:var(--main-black);
     opacity: 0.8;
+    border: 1px solid var(--main-red);
 }
 .homeTitle h4{
  color: #fff;

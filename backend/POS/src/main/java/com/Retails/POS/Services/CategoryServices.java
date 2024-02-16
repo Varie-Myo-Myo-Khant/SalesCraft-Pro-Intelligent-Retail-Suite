@@ -1,7 +1,6 @@
 package com.Retails.POS.Services;
 
 import com.Retails.POS.Models.Category;
-import com.Retails.POS.Models.Products;
 import com.Retails.POS.Repository.CategoryRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,11 +14,11 @@ public class CategoryServices {
     private CategoryRepo categoryRepo;
 
     public List<Category> getAllCateogry(){
-        return this.categoryRepo.findAll();
+        return categoryRepo.findAll();
     }
 
     public Category saveCateogry(Category category){
-        return this.categoryRepo.save(category);
+        return categoryRepo.save(category);
     }
 
     public void deleteCategory(String id){
@@ -28,5 +27,10 @@ public class CategoryServices {
 
     public Category getCategoryById(String categoryId){
         return categoryRepo.findById(categoryId).get();
+    }
+
+
+    public List<Category> searchByCategory(String category) {
+        return categoryRepo.findByCategoryContaining(category);
     }
 }

@@ -1,18 +1,29 @@
 import React from "react";
 import '../Styles/homedashboard.css'
 import {Row,Col} from 'react-bootstrap';
-import { Outlet,Link } from "react-router-dom";
+import { useNavigate, Outlet,Link } from "react-router-dom";
 import {Header} from "../Components/Header";
+import { useDispatch } from "react-redux";
+import { logout, reset } from "../Slice/authSlice";
+
  import {
   FaHome,
   FaShoppingCart,
   FaProductHunt,  
   FaHistory,
+  FaSignOutAlt,
+  FaListAlt,
 } from "react-icons/fa"; 
 
-export const HomeDashboard = () => {
+export const HomeDashboard = () => { 
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-
+    const logoutUser = () => {
+    dispatch(logout());
+    dispatch(reset());
+    navigate("/",{ replace: true });
+    };
   return (
     <section className="homedashboard">
         <Header /> 
@@ -21,29 +32,37 @@ export const HomeDashboard = () => {
              <Col md="auto" className="leftSideBar">
                 <div className="menu-links">
                     
-                        <Link to="/homedashboard">
+                        <Link to="/dashboard">
                         <FaHome className="menu-icon" />
                         Home
                         </Link>
                     
                      
-                        <Link to="/homedashboard/order">
+                        <Link to="/dashboard/order">
                         <FaShoppingCart className="menu-icon" />
                         Order
                         </Link>
                      
                      
-                        <Link to="/homedashboard/product">
+                        <Link to="product">
                         <FaProductHunt className="menu-icon" />
-                        Products
+                        Product
+                        </Link>
+
+                        <Link to="category">
+                        <FaListAlt className="menu-icon" />
+                        Category
                         </Link>
                     
                     
-                        <Link to="/homedashboard/history">
+                        <Link to="/dashboard/history">
                         <FaHistory className="menu-icon" />
                         History
                         </Link>
                      
+                        <button className="logout-btn" onClick={logoutUser} >
+                          <FaSignOutAlt className="logout-icon" />
+                        </button>
                     
                 </div> 
                

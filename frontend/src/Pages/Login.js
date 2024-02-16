@@ -27,7 +27,7 @@ export const Login=()=>{
       toast.error(message);
     }
     if (success || user) {
-      navigate("/homedashboard");
+      navigate("/dashboard");
     }
     dispatch(reset());
   }, [error, success, user, message, navigate, dispatch]);
@@ -45,7 +45,7 @@ export const Login=()=>{
     };
    
     dispatch(login(userData));
-    navigate('/homedashboard')
+    navigate('dashboard')
   };
  
    return (
@@ -87,7 +87,7 @@ export const Login=()=>{
                 </Form>
             </div>
             <div className='newUserBgn'>
-                New User? <span className='subText'><Link to="/register">Create an account!</Link></span>
+                New User? <span className='subText'><Link to="register">Create an account!</Link></span>
             </div>
 
          </Col>

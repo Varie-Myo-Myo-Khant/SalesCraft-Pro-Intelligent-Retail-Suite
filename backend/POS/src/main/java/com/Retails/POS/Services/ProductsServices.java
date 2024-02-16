@@ -37,4 +37,8 @@ public class ProductsServices {
     public List<Products> findByProductName(String productName){
         return this.productsRepo.findByProductNameContaining(productName);
     }
+
+    public List<Products> findByProductCategory(String category){
+        return this.productsRepo.findByCategoryContaining(category);
+    }
 }

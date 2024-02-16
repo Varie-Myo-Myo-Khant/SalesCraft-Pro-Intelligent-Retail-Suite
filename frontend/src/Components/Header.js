@@ -25,8 +25,9 @@ export const Header=() =>{
     const date = new Date();
     const hours = date.getHours() % 12 || 12; // Convert to 12-hour format
     const minutes = date.getMinutes();
+    const seconds=date.getSeconds();
     const period = date.getHours() < 12 ? 'AM' : 'PM';
-    const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')} ${period}`;
+    const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')} ${period}`;
     setCurrentTime(formattedTime);
 
     const day = date.getDate().toString().padStart(2, '0');

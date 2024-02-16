@@ -1,0 +1,121 @@
+/* for search bar & add new section */
+.uppderBar{
+    padding: 20px 0px;
+    align-items: center;
+    column-gap: 30px;
+     
+}
+
+.AddNew a {
+    color: var(--main-black) !important;
+    display: flex;
+    flex-direction: row;
+    column-gap: 10px;
+}
+
+.AddNew a:hover{
+    color: var(--main-red) !important;
+
+}
+
+.AddNew a svg{
+    color: var(--main-red);
+    font-size: 20px;
+}
+
+.Search.col {
+    display: flex;
+    column-gap: 5px;
+    padding: 0px !important;
+}
+
+/* for category */
+.categoryContainer.row {
+    grid-gap: 15px;
+    display: grid!important;
+    gap: 15px;
+    grid-template-columns: repeat(auto-fill,minmax(130px,1fr));
+}
+.categoryCard {
+    background-color: var(--light-grey);
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    align-items: center;
+    border-radius: 20px;
+    padding: 10px;
+    height: 130px;
+    width: 130px;
+}
+.categoryimg{
+    height: 50px;
+    width: 50px;
+    border-radius: 50px;
+}
+.categoryName{
+    color: var(--main-black);
+    font-size: 14px !important;
+
+}
+
+.categoryCard svg{
+    color: var(--main-red);
+}
+
+/* for category carousel */
+.BtnProps{
+    border: 1px solid var(--main-black);
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    font-size: 16px;
+    align-self: center !important;
+    color: var(--main-black);
+    line-height: 1em;
+}
+
+.BtnProps:hover{
+    background-color: var(--main-black); 
+    color: var(--main-white); 
+}
+
+.smallcategory{
+    background-color: var(--light-grey); 
+    border-radius: 10px; 
+    padding: 10px;
+    width: 100px;
+    margin: 10px 5px !important;
+}
+
+/* for search */
+ 
+.search-wrapper {
+  position: relative;
+}
+
+.search-icon,
+.clear-icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--main-red);
+  cursor: pointer;
+}
+
+.search-icon {
+  left: 10px;
+}
+
+.clear-icon {
+  right: 10px;
+}
+
+.keywordsearch{
+  padding-left: 30px;  
+    width: 1000px;  
+    /* background-clip: padding-box; */
+    border: 1px solid var(--main-red);
+    border-radius: 20px;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+

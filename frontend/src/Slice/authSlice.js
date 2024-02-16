@@ -57,7 +57,7 @@ export const authSlice = createSlice({
             state.loading = false
             //state.user = action.payload
             //addLocalStorageUser(action.payload)
-            toast.success('user successfully registered')
+            toast.success('User Successfully Registered')
         })
         .addCase(register.rejected, (state, action) => {
             state.loading = false
@@ -72,7 +72,7 @@ export const authSlice = createSlice({
             state.loading = false
             state.user = action.payload
             addLocalStorageUser(action.payload)
-            toast.success('user success login')
+            toast.success('User Success Login')
         })
         .addCase(login.rejected, (state, action) => {
             state.loading = false
@@ -83,7 +83,7 @@ export const authSlice = createSlice({
         .addCase(logout.fulfilled, (state) => {
             state.user = null
             deleteLocalStorageUser()
-            toast.success('User logout')
+            toast.success('User Logout')
         })
     }
 })

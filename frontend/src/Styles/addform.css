@@ -1,0 +1,32 @@
+.formcontainer label{
+    color:var(--main-black) !important;
+}
+.formcontainer h3{
+    color:var(--main-red) !important;
+    text-align: center !important;
+    font-size: 28px !important;
+    font-weight: 700 !important;
+    margin-bottom: 30px;
+}
+.formcontainer{ 
+    margin-top: 50px;
+}
+.Addform.row { 
+    margin: 5% 25%;
+    border: 2px solid var(--main-red);
+    padding: 30px;
+    border-radius: 20px;
+}
+
+.Goback a svg{
+    color: var(--main-red);
+    font-size: 20px;
+}
+
+.Goback a{
+    color: var(--main-black) !important;
+    display: flex;
+    flex-direction: row;
+    column-gap: 10px;
+}
+

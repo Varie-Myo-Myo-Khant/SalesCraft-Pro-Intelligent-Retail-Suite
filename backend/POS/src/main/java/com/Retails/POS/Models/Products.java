@@ -2,10 +2,13 @@ package com.Retails.POS.Models;
 
 
 import jakarta.persistence.Id;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotBlank;
+import java.util.Date;
 
 @Document(collection = "products")
 public class Products {
@@ -16,24 +19,28 @@ public class Products {
     private String productImage;
 
     private int stockQuantity;
+    private String category;
+    private String userId;
+    @CreatedDate
+    private Date createdTime;
 
-    @DBRef
-    private User user;
-
-    @DBRef
-    private Category category;
-
+    @LastModifiedDate
+    private Date updatedTime;
     public Products() {
+        this.createdTime = new Date();
+        this.updatedTime = new Date();
     }
 
-    public Products(String id, String productName, double productPrice, String productImage, int stockQuantity, User user, Category category) {
+    public Products(String id, String productName, double productPrice, String productImage, int stockQuantity, String category, String userId) {
         this.id = id;
         this.productName = productName;
         this.productPrice = productPrice;
         this.productImage = productImage;
         this.stockQuantity = stockQuantity;
-        this.user = user;
         this.category = category;
+        this.userId = userId;
+        this.createdTime = new Date();
+        this.updatedTime = new Date();
     }
 
     public String getId() {
@@ -76,21 +83,35 @@ public class Products {
         this.stockQuantity = stockQuantity;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Category getCategory() {
+    public String getCategory() {
         return category;
     }
 
-    public void setCategory(Category category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 
+    public String getUserId() {
+        return userId;
+    }
 
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public Date getCreatedTime() {
+        return createdTime;
+    }
+
+    public void setCreatedTime(Date createdTime) {
+        this.createdTime = createdTime;
+    }
+
+    public Date getUpdatedTime() {
+        return updatedTime;
+    }
+
+    public void setUpdatedTime(Date updatedTime) {
+        this.updatedTime = updatedTime;
+    }
 }

@@ -1,14 +1,15 @@
-import http from "./baseURL";
+import httpRequest from "./baseURL";
 import authHeader from './AuthHeader'; 
+// import { deleteLocalStorageCart } from '../../utils/localStorage'
+// import { clearCart } from '../cart/cartSlice'
 
-    // get all product
- 
+    // get all product 
     const getProduct = async (token) => { // Pass the token as a parameter
         // localhost:8080/api/category/
         const response = await httpRequest.get("/product/", { headers: authHeader(token) }); // Include the authorization header
         return response.data;
     }
-
+    // get all product  by id
     const getProductById = async(id,token) =>{
         const response = await httpRequest.get(`/product/${id}`, { headers: authHeader(token) }); // Include the authorization header
         return response.data;
@@ -16,7 +17,7 @@ import authHeader from './AuthHeader';
 
     // find product by name
     const findByProductName=async(productName,token)=> {
-        const response = await httpRequest.get(`/product/${productName}`, { headers: authHeader(token) }); 
+        const response = await httpRequest.get(`/product/search?productName=${productName}`, { headers: authHeader(token) }); 
          return response.data;
     }
 
@@ -27,15 +28,23 @@ import authHeader from './AuthHeader';
     }
 
     // delete product by id
-    const deleteProduct=async(id,token)=> {
-        const response = await httpRequest.delete(`/product/${id}`, { headers: authHeader(token) }); 
+    const deleteProduct=async(product,token)=> {
+        const response = await httpRequest.delete(`/product/${product.id}`,{ headers: authHeader(token) }); 
+        // deleteLocalStorageCart()
+        // thunkAPI.dispatch(clearCart())
         return response.data;
     }
 
     // update the data
-     const updateProduct=async(id,token)=> {
-        const response = await httpRequest.put(`/product/${id}`, { headers: authHeader(token) }); 
+     const updateProduct=async(product,token)=> {
+        const response = await httpRequest.put(`/product/${product.id}`,product, { headers: authHeader(token) }); 
         return response.data;
+    }
+
+    //filter product by category
+    const categoryProductFilter=async(category,token)=>{ 
+        const response= await httpRequest.get(`/product/category/${category}`, { headers: authHeader(token) })
+        return response.data
     }
 
     const productService = {
@@ -44,7 +53,8 @@ import authHeader from './AuthHeader';
     getProductById,
     findByProductName,
     deleteProduct,
-    updateProduct
+    updateProduct,
+    categoryProductFilter
 }
 
 export default productService;

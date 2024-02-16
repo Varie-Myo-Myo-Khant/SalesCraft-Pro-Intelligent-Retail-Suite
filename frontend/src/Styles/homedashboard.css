@@ -1,4 +1,8 @@
 /**********Header Component*************/
+.homedashboard{
+
+    height: 100 vh !important;
+}
 nav.bg-body-tertiary {
   background-color: var(--main-red) !important;
 }
@@ -14,9 +18,9 @@ nav.bg-body-tertiary {
 
 .leftSideBar {
     background-color: var(--main-black) !important;
-    height: 100vh;
     width: 180px;
     padding: 30px;
+    height: 90vh;
 }
 
 .menu-links, .menu-links .user-info, .user-info, a {
@@ -30,7 +34,7 @@ nav.bg-body-tertiary {
   flex-direction: column;
 }
 
-.menu-links a{ 
+.menu-links a,.menu-links button{ 
     font-size: 16px;
     justify-content: center; 
     padding: 20px;

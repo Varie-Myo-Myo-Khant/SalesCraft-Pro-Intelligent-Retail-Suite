@@ -1,92 +1,143 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
-import categoryService from '../Services/CategoryService'
-import { toast } from 'react-toastify'
-import authHeader from '../Services/AuthHeader'; // Import the authHeader function
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import categoryService from '../Services/CategoryService'; 
+import { toast } from "react-toastify"; 
 
-// for initial state as null
+
 const initialState = {
-    categories: [],
+    categories: [], // Ensure categories array is initialized
+    filterCategory:[],
     category: '',
-    image: '',
+    categoryImage: '',
+    userId:'',
     error: false,
     loading: false,
-}
+    isEditing: false,
+    editCategoryId:'',
+};
 
-// generation of action to create category
 export const categoryCreate = createAsyncThunk('category/categoryCreate', async (category, thunkAPI) => {
     try {
-        // Get the authorization header using the authHeader function
-        const headers = authHeader();
-        console.log(headers)
-        // Call the service function with the authorization header
-        const response = await categoryService.categoryCreate(category, headers);
-        console.log(response.data)
-        // Return response data
+        const response = await categoryService.categoryCreate(category);
         return response.data;
-
     } catch (error) {
-        return thunkAPI.rejectWithValue(error.response.data)
+        return thunkAPI.rejectWithValue(error.response.data);
     }
-})
+});
 
-// generation of action to get category
 export const getCategories = createAsyncThunk('category/getCategories', async (_, thunkAPI) => {
     try {
-        // Get the authorization header using the authHeader function
-        const headers = authHeader();
-
-        // Call the service function with the authorization header
-        const response = await categoryService.getCategories(headers);
-
-        // Return response data
-        return response.data;
+        const response = await categoryService.getCategories();
+        return response;
     } catch (error) {
-        return thunkAPI.rejectWithValue(error.response.data)
+        return thunkAPI.rejectWithValue(error.response.data);
+    }
+});
+
+export const editCategory = createAsyncThunk('category/editCategory', async (category, thunkAPI) => {
+    try {
+       return await categoryService.updateCategory(category)
+    } catch (error) {
+         return thunkAPI.rejectWithValue(error.response.data)
     }
 })
 
-// creating redux slice with initial state, reducers and extra reducers
+//to delete
+export const removeCategory = createAsyncThunk('category/removeCategory', async (category, thunkAPI) => {
+    try {
+       
+        return await categoryService.deleteCategory(category, thunkAPI)
+    } catch (error) {
+         return thunkAPI.rejectWithValue(error.response.data)
+    }
+})
+
+//to filter category with name
+export const searchByCategoryName = createAsyncThunk('product/searchByCategoryName', async (category, thunkAPI) => {
+    try { 
+       return await categoryService.findByCategoryName(category)
+    } catch (error) {
+         return thunkAPI.rejectWithValue(error.response.data)
+    }
+})
+
 export const categorySlice = createSlice({
-    name: 'category', // slice name
+    name: 'category',
     initialState,
-    reducers: { // to update state based on action
-        handleChange: (state, { payload: { name, value } }) => { // updates state based on payload
-            state[name] = value
+    reducers: {
+        handleChange: (state, { payload: { name, value } }) => {
+            state[name] = value;
         },
-        clearValues: () => { // return initial state
-            return {
-                ...initialState,
-            }
+        setEditCategory: (state, action) => {
+            return {...state, isEditing :true, ...action.payload}
+        },
+        clearValues: () => {
+            return { ...initialState };
         }
     },
-    // handles actions dispatched by async thunks.
     extraReducers: (builder) => {
         builder
             .addCase(categoryCreate.pending, (state) => {
-                state.loading = true
+                state.loading = true;
             })
             .addCase(categoryCreate.fulfilled, (state, action) => {
-                state.loading = false
-                toast.success('category added')
+                state.loading = false;
+                toast.success('Successfully Added New Category!')
             })
             .addCase(categoryCreate.rejected, (state, action) => {
-                state.loading = false
-                state.error = true
-                toast.error('category error')
+                state.loading = false;
+                state.error = true;
+                toast.error('Fail! Please try again later!')
             })
             .addCase(getCategories.pending, (state) => {
-                state.loading = true
+                state.loading = true;
             })
             .addCase(getCategories.fulfilled, (state, action) => {
-                state.loading = false
-                state.categories = action.payload
+                state.loading = false; 
+                state.categories = action.payload; 
             })
             .addCase(getCategories.rejected, (state, action) => {
-                state.loading = false
-                state.error = true
+                state.loading = false;
+                state.error = true;
+            })
+            .addCase(editCategory.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(editCategory.fulfilled, (state, action) => {
+                state.loading = false;
+                toast.success('Updated the Category!')
+            })
+            .addCase(editCategory.rejected, (state, action) => {
+                state.loading = false;
+                state.error = true;
+                toast.error('Fail! Please try again later!')
+            })
+            .addCase(searchByCategoryName.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(searchByCategoryName.fulfilled, (state, action) => {
+                state.loading = false; 
+                state.filterCategory = action.payload; 
+            })
+            .addCase(searchByCategoryName.rejected, (state, action) => {
+                state.loading = false;
+                state.error = true;
+            })
+            .addCase(removeCategory.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(removeCategory.fulfilled, (state, action) => {
+                state.loading = false;
+                let removeCategory = state.categories.filter(item => item.id !== action.payload.id)
+                state.categories = removeCategory
+                toast.success('Successfully Deleted the Category!')
+            })
+            .addCase(removeCategory.rejected, (state, action) => {
+                state.loading = false;
+                state.error = true;
+                toast.error('Fail! Please try again later!')
             })
     }
-})
+});
 
-export const { handleChange, clearValues } = categorySlice.actions;
-export default categorySlice.reducer
+export const { handleChange,setEditCategory, clearValues } = categorySlice.actions;
+export default categorySlice.reducer;
