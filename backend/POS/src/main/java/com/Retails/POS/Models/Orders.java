@@ -1,8 +1,12 @@
 package com.Retails.POS.Models;
 
 import jakarta.persistence.Id;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Document(collection = "orders")
 public class Orders {
@@ -10,17 +14,20 @@ public class Orders {
     private String _id;
     private String orderNumber;
     private String customer;
-    private List<String> cartItems;
+    private List<Map<String, Object>> cartItems;
     private double subTotal;
     private double totalAmount;
     private double tax;
     private String paymentType;
     private String userId;
+    @CreatedDate
+    private Date createdTime;
 
     public Orders() {
+        this.createdTime = new Date();
     }
 
-    public Orders(String _id, String orderNumber, String customer, List<String> cartItems, double subTotal, double totalAmount, double tax, String paymentType, String userId) {
+    public Orders(String _id, String orderNumber, String customer, List<Map<String, Object>> cartItems, double subTotal, double totalAmount, double tax, String paymentType, String userId, Date createdTime) {
         this._id = _id;
         this.orderNumber = orderNumber;
         this.customer = customer;
@@ -30,6 +37,7 @@ public class Orders {
         this.tax = tax;
         this.paymentType = paymentType;
         this.userId = userId;
+        this.createdTime = new Date();
     }
 
     public String get_id() {
@@ -56,11 +64,12 @@ public class Orders {
         this.customer = customer;
     }
 
-    public List<String> getCartItems() {
+
+    public List<Map<String, Object>> getCartItems() {
         return cartItems;
     }
 
-    public void setCartItems(List<String> cartItems) {
+    public void setCartItems(List<Map<String, Object>> cartItems) {
         this.cartItems = cartItems;
     }
 
@@ -104,18 +113,11 @@ public class Orders {
         this.userId = userId;
     }
 
-    @Override
-    public String toString() {
-        return "Orders{" +
-                "_id='" + _id + '\'' +
-                ", orderNumber='" + orderNumber + '\'' +
-                ", customer='" + customer + '\'' +
-                ", cartItems=" + cartItems +
-                ", subTotal=" + subTotal +
-                ", totalAmount=" + totalAmount +
-                ", tax=" + tax +
-                ", paymentType='" + paymentType + '\'' +
-                ", userId='" + userId + '\'' +
-                '}';
+    public Date getCreatedTime() {
+        return createdTime;
+    }
+
+    public void setCreatedTime(Date createdTime) {
+        this.createdTime = createdTime;
     }
 }

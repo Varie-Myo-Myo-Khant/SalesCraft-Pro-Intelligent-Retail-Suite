@@ -79,7 +79,7 @@ export const AddCategory = () => {
     <Container className="formcontainer">
     <Row>
       <Col md="auto"  className="Goback">
-     <Link to="/dashboard/category">
+     <Link to="/category">
               <FaArrowAltCircleLeft className="menu-icon" />
               Go back to Category Page
             </Link>

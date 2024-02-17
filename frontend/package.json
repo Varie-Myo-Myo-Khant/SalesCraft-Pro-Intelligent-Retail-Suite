@@ -20,6 +20,7 @@
     "react-scripts": "5.0.1",
     "react-simply-carousel": "^9.1.1",
     "react-spinners": "^0.13.8",
+    "react-to-print": "^2.15.1",
     "react-toastify": "^7.0.4",
     "react-validation": "^3.0.7",
     "redux": "^4.1.2",

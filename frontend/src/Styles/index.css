@@ -91,10 +91,10 @@ h3{
   font-family: var(--font-family2) !important;
 }
 
-p,div,a{
+p,div{
   font-size: 16px;
   font-family: var(--font-family2) !important;
-  color: var(--main-white);
+  color: var(--main-black);
 }
 
 

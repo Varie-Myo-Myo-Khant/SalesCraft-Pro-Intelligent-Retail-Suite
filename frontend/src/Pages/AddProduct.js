@@ -83,7 +83,7 @@ export const AddProduct = () => {
   // Handle input change
   const onChange = (e) => { 
     const name = e.target.name;
-    const value = e.target.value.replace(/\s+/g, "-").toLowerCase();
+    const value = e.target.value;
     dispatch(handleChange({ name, value }));
   };
 
@@ -93,7 +93,7 @@ export const AddProduct = () => {
     <Container className="formcontainer">
     <Row>
       <Col md="auto"  className="Goback">
-     <Link to="/dashboard/product">
+     <Link to="/product">
               <FaArrowAltCircleLeft className="menu-icon" />
               Go back to Product Page
             </Link>

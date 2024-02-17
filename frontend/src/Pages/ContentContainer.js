@@ -15,7 +15,7 @@ import { logout, reset } from "../Slice/authSlice";
   FaListAlt,
 } from "react-icons/fa"; 
 
-export const HomeDashboard = () => { 
+export const ContentContainer = () => { 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -38,7 +38,7 @@ export const HomeDashboard = () => {
                         </Link>
                     
                      
-                        <Link to="/dashboard/order">
+                        <Link to="order">
                         <FaShoppingCart className="menu-icon" />
                         Order
                         </Link>
@@ -55,7 +55,7 @@ export const HomeDashboard = () => {
                         </Link>
                     
                     
-                        <Link to="/dashboard/history">
+                        <Link to="history">
                         <FaHistory className="menu-icon" />
                         History
                         </Link>

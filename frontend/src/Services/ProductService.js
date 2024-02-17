@@ -1,7 +1,7 @@
 import httpRequest from "./baseURL";
 import authHeader from './AuthHeader'; 
-// import { deleteLocalStorageCart } from '../../utils/localStorage'
-// import { clearCart } from '../cart/cartSlice'
+import { deleteLocalStorageCart } from '../Services/localStorage'
+import { clearCart } from '../Slice/cartSlice'
 
     // get all product 
     const getProduct = async (token) => { // Pass the token as a parameter
@@ -28,10 +28,11 @@ import authHeader from './AuthHeader';
     }
 
     // delete product by id
-    const deleteProduct=async(product,token)=> {
+    const deleteProduct=async(product,token,thunkAPI)=> {
         const response = await httpRequest.delete(`/product/${product.id}`,{ headers: authHeader(token) }); 
-        // deleteLocalStorageCart()
-        // thunkAPI.dispatch(clearCart())
+        //also remove from local storage and cart when the product is deleted.
+        deleteLocalStorageCart()
+        thunkAPI.dispatch(clearCart())
         return response.data;
     }
 

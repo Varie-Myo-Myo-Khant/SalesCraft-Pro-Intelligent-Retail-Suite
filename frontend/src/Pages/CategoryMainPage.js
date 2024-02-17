@@ -53,7 +53,7 @@ export const CategoryMainPage = () => {
       editCategoryId: category.id,
     })
   );
-    navigate("/dashboard/addcategory")
+    navigate("/addcategory")
   }
 
   return (
