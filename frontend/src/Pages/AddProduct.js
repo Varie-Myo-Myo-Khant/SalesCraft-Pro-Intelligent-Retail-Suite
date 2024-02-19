@@ -7,8 +7,10 @@ import { Link } from "react-router-dom";
 import { FaArrowAltCircleLeft } from "react-icons/fa";
 import {getCategories} from '../Slice/categorySlice';
 import "../Styles/addform.css"  
+import { useNavigate } from 'react-router-dom';
 
 export const AddProduct = () => {
+   const navigate = useNavigate();
   const { user } = useSelector((store) => store.auth);
   const { 
     productName,
@@ -83,7 +85,7 @@ export const AddProduct = () => {
   // Handle input change
   const onChange = (e) => { 
     const name = e.target.name;
-    const value = e.target.value;
+    const value = e.target.value.replace(/\s+/g, "-").toLowerCase();
     dispatch(handleChange({ name, value }));
   };
 
@@ -123,7 +125,8 @@ export const AddProduct = () => {
               ref={fileInputRef} // Attach ref to the file input field
             /> 
              </Form.Group> 
-            <Form.Group className="mb-3" controlId="formBasicEmail">
+             <Row>
+            <Form.Group className="mb-3" as={Col} controlId="formBasicEmail">
             <Form.Label>Product Price</Form.Label> 
             <Form.Control
               type="text"
@@ -133,7 +136,7 @@ export const AddProduct = () => {
               onChange={onChange}
             />
           </Form.Group>
-           <Form.Group className="mb-3" controlId="formBasicEmail">
+           <Form.Group className="mb-3" as={Col} controlId="formBasicEmail">
             <Form.Label>Stock Quantity</Form.Label> 
             <Form.Control
               type="text"
@@ -143,7 +146,8 @@ export const AddProduct = () => {
               onChange={onChange}
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
+          
+          <Form.Group className="mb-3" as={Col} controlId="formBasicEmail">
             <Form.Label>Category</Form.Label> 
             <Form.Select  
               name="category"
@@ -155,8 +159,9 @@ export const AddProduct = () => {
                 <option key={c.id} value={c.category}>{c.category}</option>
               ))}
               </Form.Select>
-          </Form.Group>
-          <Button variant="primary" type="submit">{isEditing?"Update Product":"Add Product"}</Button>
+          </Form.Group></Row>
+          <Button variant="primary" className="btntype2" type="submit">{isEditing?"Update Product":"Add Product"}</Button>
+          <Button variant="primary" className="btntype1"  onClick={() => navigate('/product')}>Cancel</Button>
         </Form> 
       </Row>
        

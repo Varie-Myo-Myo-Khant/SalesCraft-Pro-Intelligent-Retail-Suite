@@ -1,10 +1,13 @@
 import Container from 'react-bootstrap/Container';
 import React, { useState, useEffect } from 'react';
-
+import { useDispatch } from "react-redux";
+import { logout, reset } from "../Slice/authSlice";
 import Navbar from 'react-bootstrap/Navbar';
-import '../Styles/homedashboard.css'
-import brandlogred from '../Images/brandlogo_red.png';
-import {FaUserCircle} from "react-icons/fa";
+import '../Styles/navigation.css'
+import brandlogred from '../Images/brandlogo_two.png';
+import {FaUserCircle,FaSignOutAlt} from "react-icons/fa";
+import { useNavigate} from "react-router-dom";
+
 
 export const Header=() =>{
 
@@ -37,12 +40,19 @@ export const Header=() =>{
     setCurrentDate(formattedDate);
   };
 
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+    const logoutUser = () => {
+    dispatch(logout());
+    dispatch(reset());
+    navigate("/",{ replace: true });
+    };
 
 
   return (
-    <Navbar   className="bg-body-tertiary">
+    <Navbar  sticky="top" className="bg-body-tertiary">
       <Container>
-        <Navbar.Brand href="\homedashboard"><img src={brandlogred} className='homelogo'/></Navbar.Brand>
+        <Navbar.Brand href="\dashboard"><img src={brandlogred} alt="brandlogo" className='homelogo'/></Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
           <Navbar.Text>
@@ -52,10 +62,15 @@ export const Header=() =>{
           </Navbar.Text>
           <Navbar.Text>
              <a href="#login">
-              <FaUserCircle className="menu-icon" />
-               
+              <FaUserCircle className="menu-icon" />      
              </a>
           </Navbar.Text>
+           <Navbar.Text >
+             <button  className="logout-btn" onClick={logoutUser} >
+               <FaSignOutAlt className="logout-icon" />     
+             </button>
+          </Navbar.Text> 
+                    
         </Navbar.Collapse>
       </Container>
     </Navbar>

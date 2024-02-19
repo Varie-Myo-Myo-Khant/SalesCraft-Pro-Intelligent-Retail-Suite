@@ -13,14 +13,14 @@ html {
 
 :root {
   /* colors */
-  --main-red: #C20114;
+  --main-two: #7662EE;
   --main-black:#0C120C;
   --dark-grey:#6D7275;
-  --light-grey:#C7D6D5;
-  --white-grey:#ECEBF3;
+  --light-grey:#eeedf5;
+  --white-grey:#fff0f07d;
   --main-white:#ffffff;
   /* Font Family */
-  --font-family1:'Calibre','Inter','San Francisco','SF Pro Text',-apple-system,system-ui,sans-serif !important;
+  --font-family1:'Poppins','SF Mono','San Francisco','SF Pro Text',-apple-system,system-ui,sans-serif !important;
   --font-family2: 'SF Mono','Fira Code','Fira Mono','Roboto Mono',monospace;
 }
 
@@ -38,10 +38,6 @@ body {
   font-family: var(--font-family1);
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
 
 
 
@@ -66,6 +62,11 @@ code {
  
  a:hover{
   text-decoration: none;
+  color: var(--main-two);
+ }
+
+ a:visited{
+  color: var(--main-white);
  }
 
  img{
@@ -75,26 +76,29 @@ code {
 
 h1{
   font-size: 64px !important;
-  font-family: var(--font-family2) !important;
   font-weight: 700 !important;
 }
 
 h2{
   font-size: 48px !important;
-  font-weight: 600 !important;
-  font-family: var(--font-family2) !important;
+  font-weight:700 !important;
 }
 
 h3{
   font-size: 36px !important;
-  font-weight: 500 !important;
-  font-family: var(--font-family2) !important;
+  font-weight: 700 !important;
 }
 
 p,div{
   font-size: 16px;
-  font-family: var(--font-family2) !important;
   color: var(--main-black);
+}
+
+ input#formBasicEmail,input#formBasicPassword ,select#formBasicEmail{
+    border-radius: 30px;
+    margin-top: 5px;
+    padding:10px 20px; 
+    border: 1px solid var(--main-two);
 }
 
 

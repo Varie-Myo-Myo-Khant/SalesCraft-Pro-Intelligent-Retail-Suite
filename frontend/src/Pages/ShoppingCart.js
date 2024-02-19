@@ -10,6 +10,8 @@ import {
   removeCartItem,
 } from "../Slice/cartSlice";
 import "../Styles/cart.css";
+import { Row,Col } from "react-bootstrap";
+import { FaMinus, FaPlus, FaTimes } from "react-icons/fa";
 
 export const ShoppingCart = () => {
   const { cartItems, subTotal, totalAmount, tax } = useSelector((state) => state.cart);
@@ -26,23 +28,15 @@ export const ShoppingCart = () => {
   }, [dispatch, cartItems]);
 
   return (
-    <div className="cart">
-      <div className="cart-header">
-        <div className="cart-title">
-          <span>Cart Items</span>
-          <span>Cart Table</span>
-        </div>
-
-        <div className="cart-number">
-          <h3># {cartItems ? cartItems.length : 0}</h3>
-          <h3>T1</h3>
-        </div>
-      </div>
-
+    <>
+      <Row className="cartHeader">
+      <h3>Total Items - {cartItems ? cartItems.length : 0}</h3>
+      </Row>  
+    <Row className="cartItemContainer">
       {cartItems && cartItems.length > 0 ? (
         cartItems.map((cart) => (
-          <div className="cart-items" key={cart.id}>
-            <div className="image">
+          <Row className="cartCard" key={cart.id}>
+            <Col md="auto" className="cartimage">
               {cart.productImage ? (
                 <img className="product-image" src={cart.productImage} alt="..." />
               ) : (
@@ -52,86 +46,62 @@ export const ShoppingCart = () => {
                   alt="..."
                 />
               )}
-            </div>
+            </Col>
 
-            <div className="info">
-              <h4>{cart.productName}</h4>
-
-              <button
-                className="remove-item"
-                type="button"
-                onClick={() => {
-                  dispatch(removeCartItem(cart.id));
-                }}
-              >
-                X
+            <Col className="cartinfo">
+              <h3>{cart.productName}</h3> 
+              <Row className="priceRow">
+                <Col>
+                   <p>$ {cart.productPrice}</p>
+                </Col>
+               <Col>
+                <button className="increment-btn" type="button" onClick={() => {
+                    dispatch(increase(cart.id));}}>
+                  <FaPlus/>
+                </button>
+                <span className="amount">{cart.quantity}</span>
+                <button className="decrement-btn" type="button"  onClick={() => {
+                          dispatch(decrease(cart.id)); }}>
+                <FaMinus/>
               </button>
-
-              <div className="details">
-                <div className="status">
-                  <span className="status-note">Category:</span>
-                  <p className="status-text">{cart.category}</p>
-                </div>
-
-                <div className="price">
-                  <p>$ {cart.productPrice}</p>
-                </div>
-
-                <div className="count">
-                  <button
-                    className="increment-btn"
-                    type="button"
-                    onClick={() => {
-                      dispatch(increase(cart.id));
-                    }}
-                  >
-                    +
-                  </button>
-                  <span className="amount">{cart.quantity}</span>
-                  <button
-                    className="decrement-btn"
-                    type="button"
-                    onClick={() => {
-                      dispatch(decrease(cart.id));
-                    }}
-                  >
-                    -
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
+           </Col>    
+          </Row>
+          <button className="remove-item"  type="button"  onClick={() => {
+                  dispatch(removeCartItem(cart.id)); }} >
+             <FaTimes/>
+          </button>
+          </Col>
+          </Row>
         ))
       ) : (
-        <div className="cart-empty">
-          <div className="cart-title">
-            <span>There are no products in the cart.</span>
-          </div>
-        </div>
+         <Row className="cartCard">
+            <span>There are no products in the cart.!</span>
+          </Row>
       )}
-
-      <div className="total-card">
-        <div className="total-items">
+  </Row>
+  <Row className="cartAmount">
+        <p className="total-items">
           <span className="items-count">Items ({cartItems ? cartItems.length : 0})</span>
           <span className="items-price">$ {subTotal.toFixed(2)}</span>
-        </div>
-        <div className="item-taxs">
+        </p>
+        <p className="item-taxs">
           <span className="item-tax">Tax (%8)</span>
           <span className="item-tax-price">$ {tax.toFixed(2)}</span>
-        </div>
-        <div className="divider"></div>
-        <div className="total">
+        </p>
+        <p className="divider"></p>
+        <p className="total">
           <span className="total-text">Total </span>
           <span className="total-item-price">$ {totalAmount.toFixed(2)}</span>
-        </div>
+        </p>
 
-        <div className="pay">
-          <button className="pay-btn" onClick={() => navigate("/checkout")}>
+        <p className="pay">
+          <button className="btntype2" disabled={cartItems.length === 0} onClick={() => navigate("/checkout")}>
+
             Checkout
           </button>
-        </div>
-      </div>
-    </div>
+        </p>
+    </Row>
+    </>
   );
 };
 

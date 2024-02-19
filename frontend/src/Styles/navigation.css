@@ -4,7 +4,7 @@
     height: 100 vh !important;
 }
 nav.bg-body-tertiary {
-  background-color: var(--main-red) !important;
+  background-color: var(--main-two) !important;
 }
 
 .homelogo{
@@ -20,7 +20,7 @@ nav.bg-body-tertiary {
     background-color: var(--main-black) !important;
     width: 180px;
     padding: 30px;
-    height: 90vh;
+    height: 89.3vh;
 }
 
 .menu-links, .menu-links .user-info, .user-info, a {
@@ -51,6 +51,16 @@ nav.bg-body-tertiary {
     font-size: 40px; 
     color: var(--main-white);
 }
+.menu-links a:hover{
+  color: var(--main-two) !important;
+}
+.logout-btn{
+  
+  font-size: 30px !important;
+  margin-left: 30px;
+  color: var(--main-white);
+  background-color: transparent !important;
+}
 .currentTime{
   border: 1px solid var(--main-white);
     padding: 10px 20px;
@@ -59,10 +69,13 @@ nav.bg-body-tertiary {
     color: var(--main-black);
     margin-right: 30px ; 
 }
-
+.mainOutlet{
+  padding-right: 0px !important;
+}
 @media (min-width: 1400px)
 {
   .bg-body-tertiary .container{
   max-width: 1400px;
 }
 }
+

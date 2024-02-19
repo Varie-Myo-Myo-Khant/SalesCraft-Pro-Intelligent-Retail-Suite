@@ -1,29 +1,22 @@
 import React from "react";
-import '../Styles/homedashboard.css'
+import '../Styles/navigation.css'
 import {Row,Col} from 'react-bootstrap';
-import { useNavigate, Outlet,Link } from "react-router-dom";
-import {Header} from "../Components/Header";
-import { useDispatch } from "react-redux";
-import { logout, reset } from "../Slice/authSlice";
+import { Outlet,Link } from "react-router-dom";
+import {Header} from "./Header";
+
 
  import {
   FaHome,
   FaShoppingCart,
   FaProductHunt,  
   FaHistory,
-  FaSignOutAlt,
   FaListAlt,
 } from "react-icons/fa"; 
 
 export const ContentContainer = () => { 
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+ 
 
-    const logoutUser = () => {
-    dispatch(logout());
-    dispatch(reset());
-    navigate("/",{ replace: true });
-    };
+  
   return (
     <section className="homedashboard">
         <Header /> 
@@ -60,15 +53,11 @@ export const ContentContainer = () => {
                         History
                         </Link>
                      
-                        <button className="logout-btn" onClick={logoutUser} >
-                          <FaSignOutAlt className="logout-icon" />
-                        </button>
-                    
                 </div> 
                
             </Col>
            
-            <Col>
+            <Col className="mainOutlet">
                 <Outlet />
             </Col>
           </Row>

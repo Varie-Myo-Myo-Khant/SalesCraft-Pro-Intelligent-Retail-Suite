@@ -1,29 +1,24 @@
 import React, { useState,useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux"; 
-import { FaAngleDoubleLeft, FaAngleDoubleRight, FaSearch, FaTimes, FaTrashAlt } from "react-icons/fa";
+import { FaAngleDoubleLeft, FaAngleDoubleRight, FaSearch, FaTimes} from "react-icons/fa";
 import { Container,  Row, Col } from 'react-bootstrap';
 import { getCategories } from "../Slice/categorySlice";
 import { getProducts,searchByProductName,categoryProductFilter } from "../Slice/productSlice";
-import ClipLoader from "react-spinners/ClipLoader";
 import "../Styles/product_category.css";
 import { addToCart } from "../Slice/cartSlice";
 import { productSubTotal,productTax,productTotalAmount } from "../Slice/cartSlice";
 import ReactSimplyCarousel from 'react-simply-carousel';
+import { Loading } from "./Loading"; 
 
 export const CartProducts = () => {
-  const dispatch = useDispatch();
 
+  const dispatch = useDispatch();
   //for carousel
    const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   //for products data
-  const { products,loading,filterProduct} = useSelector((state) => state.product);  
-  // Get categories for categories section
-  const { categories } = useSelector((state) => state.category); 
-  //to control the listing of products
-   let [currentproduct,setCurrentProduct]=useState(products)
+  const { products,loading,filterProduct} = useSelector((state) => state.product);   
    //for search query
   const [searchQuery, setSearchQuery] = useState(""); 
-
 
   // Get categories for category section
       useEffect(() => {
@@ -34,6 +29,12 @@ export const CartProducts = () => {
   useEffect(() => {
       dispatch(getProducts());
     }, [dispatch]);
+
+    // Get categories for categories section
+  const { categories } = useSelector((state) => state.category); 
+  //to control the listing of products
+   let [currentproduct,setCurrentProduct]=useState(products)
+
 
     //Function to filter products according to category
     const filtering=(category)=>{ 
@@ -70,18 +71,12 @@ export const CartProducts = () => {
       }, [dispatch, cartItems]);
 
 
-  //for loading effect
-  const override = {
-    display: "block",
-    margin: "0 auto",
-  };
-  
 
 
   return (
    
-      <Container>
-        <Row className="uppderBar">
+      <>
+        <Row className="orderSearchContainer">
           <Col className="Search">
             <div className="search-wrapper">
               <FaSearch className="search-icon" />
@@ -99,6 +94,7 @@ export const CartProducts = () => {
         </Row>
 
         <Row className="categoryFilter">
+          {loading&&<Loading loading={loading}/>}
             <ReactSimplyCarousel   
                 activeSlideIndex={activeSlideIndex}
                 onRequestChange={setActiveSlideIndex}
@@ -133,48 +129,47 @@ export const CartProducts = () => {
             </ReactSimplyCarousel>
         </Row>
 
-        <Row className="categoryContainer">
-           {
-           loading&& 
-           <ClipLoader size="60" color="var(--main-red)" cssOverride={override} />
-           }
-            
+        <Row className="orderproductContainer">
+        {loading&&<Loading loading={loading}/>}
         {currentproduct !== undefined && currentproduct.map((product) => (
-              <Col key={product.id} className="categoryCard"> 
-                
-               <Row>
-                  <img src={product.productImage} className="categoryimg" alt={product.productName} /> 
-                </Row>
-                 <Row>
-                    <h4 className="categoryName">{product.productName}</h4>
-                    <p>$ {product.productPrice}</p>
-                    <span>On hand - {product.stockQuantity}</span>
-                    <span>{product.stockQuantity!==0?"Available!":"Not Available!"}</span>
-                </Row>
-                <Row className="add-product-cart">
-                      {product.stockQuantity === 0 ? (
-                        <div className="cart-stock">Out Of Stock</div>
+             
+               product.stockQuantity === 0 ? (
+                        <Col key={product.id} className="orderCard outof">
+                        <Row className="orderfirst">
+                         <span className="productName"> Out Of Stock!</span>
+                        <img src={product.productImage} className="orderImg" alt={product.productName} /> 
+                        <span className="productName">
+                          {product.productName ? 
+                        (product.productName.charAt(0).toUpperCase() + product.productName.slice(1).replace(/-/g, ' ')) : ("")}
+                        </span> 
+                        <span className="pother">
+                          Price : {product.productPrice} MMK
+                        </span> 
+                       
+                      </Row>
+                      </Col>
                       ) : (
-                        <button
-                          className="add-cart"
-                          type="submit"
-                          onClick={() => {
-                            addCart(product);
-                          }}
-                        >
-                          Add Cart
-                        </button>
-                      )}
-                  </Row>
-
-              </Col>
+              <Col key={product.id} className="orderCard" onClick={() => {addCart(product);}}>
+                <Row className="orderfirst">
+                    <img src={product.productImage} className="orderImg" alt={product.productName} /> 
+                    <span className="productName">
+                      {product.productName ? 
+                    (product.productName.charAt(0).toUpperCase() + product.productName.slice(1).replace(/-/g, ' ')) : ("")}
+                    </span> 
+                    <span className="pother">
+                      Price : {product.productPrice} MMK
+                    </span> 
+                  </Row>  
+                 </Col>
+                )
+             
             ))} 
     
         
          
         </Row>
       
-      </Container>
+      </>
 
   );
 }

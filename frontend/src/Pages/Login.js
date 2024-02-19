@@ -1,6 +1,6 @@
 import {Container,Form,Button,Row,Col} from 'react-bootstrap';
 import React, { useState, useEffect } from "react";
-import '../Styles/home.css';
+import '../Styles/login_register.css';
 import { toast } from "react-toastify";
 import { useNavigate,Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -45,7 +45,7 @@ export const Login=()=>{
     };
    
     dispatch(login(userData));
-    navigate('dashboard')
+    navigate('/dashboard')
   };
  
    return (
@@ -54,8 +54,9 @@ export const Login=()=>{
    <Container>
       <Row className='homeRow'>
         <Col className='homeTitle'>
-            <h1>SalesCraft Pro</h1>
             <h4>Intelligent Retail Suite</h4>
+            <h1>SalesCraft Pro</h1> 
+            <p>Streamline your point-of-sale tasks with our user-friendly interface and access comprehensive retail management features. Unlock high-level sales reports and real-time sales data for informed decision-making, driving your business forward.</p>
         </Col>
         <Col className='homeLoginForm'>
             <div className='formbgn'>
@@ -63,7 +64,7 @@ export const Login=()=>{
               <Form className="register-form" onSubmit={handleSubmit}>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Username</Form.Label>
-                    <Form.Control 
+                    <Form.Control className='myinput'
                     type="text" 
                     name='username'
                     value={username}
@@ -77,6 +78,7 @@ export const Login=()=>{
                     type="password" 
                     placeholder="Password"
                     name="password"
+                    className='myinput'
                     value={password}
                     onChange={onChange} />
                 </Form.Group>
@@ -87,7 +89,7 @@ export const Login=()=>{
                 </Form>
             </div>
             <div className='newUserBgn'>
-                New User? <span className='subText'><Link to="register">Create an account!</Link></span>
+                New User? <span className='subText'><Link to="register">Register Here!</Link></span>
             </div>
 
          </Col>

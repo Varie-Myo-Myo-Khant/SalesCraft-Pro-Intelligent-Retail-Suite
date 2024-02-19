@@ -4,7 +4,7 @@ import { useNavigate,Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { useSelector, useDispatch} from 'react-redux'
 import { register, reset } from '../Slice/authSlice'
-import '../Styles/home.css';
+import '../Styles/login_register.css';
 
 export const Register = () => {
 
@@ -26,7 +26,7 @@ export const Register = () => {
       toast.error(message)
     }
     if (success || user) {
-      navigate('login')
+      navigate('/')
     }
     dispatch(reset())
   }, [error, success, user, message, navigate, dispatch])
@@ -42,7 +42,7 @@ export const Register = () => {
       username, email, password
     }
     dispatch(register(userData))
-    navigate('login')
+    navigate('/')
   }
 
   return (
@@ -51,17 +51,18 @@ export const Register = () => {
           <Container>
             <Row className='homeRow'>
               <Col className='homeTitle'>
-                  <h1>SalesCraft Pro</h1>
                   <h4>Intelligent Retail Suite</h4>
+            <h1>SalesCraft Pro</h1> 
+            <p>Streamline your point-of-sale tasks with our user-friendly interface and access comprehensive retail management features. Unlock high-level sales reports and real-time sales data for informed decision-making, driving your business forward.</p>
               </Col>
               <Col className='homeLoginForm'>
                 <div className='formbgn'>
-                <h3>Login</h3>
+                <h3>Register</h3>
 
                 <Form className="register-form" onSubmit={handleSubmit}>
                   <Form.Group className="mb-3" controlId="formBasicEmail">
                      <Form.Label>Username</Form.Label> 
-                      <Form.Control  
+                      <Form.Control  className='myinput'
                       type="text" 
                       placeholder='Username' 
                       name='username' 
@@ -71,7 +72,7 @@ export const Register = () => {
               
                   <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Email</Form.Label>
-                    <Form.Control 
+                    <Form.Control className='myinput'
                     type="email" 
                     placeholder='Email' 
                     name='email' 
@@ -82,7 +83,7 @@ export const Register = () => {
                         
                      <Form.Group className="mb-3" controlId="formBasicPassword">
                         <Form.Label>Password</Form.Label>  
-                        <Form.Control  
+                        <Form.Control  className='myinput'
                         type="password" 
                         placeholder='Password' 
                         name='password' 

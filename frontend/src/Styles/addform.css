@@ -1,25 +1,28 @@
 .formcontainer label{
-    color:var(--main-black) !important;
+    color: var(--main-black) !important;
+    line-height: 16px;
+    font-weight: 600 !important;
+    
 }
 .formcontainer h3{
-    color:var(--main-red) !important;
-    text-align: center !important;
-    font-size: 28px !important;
-    font-weight: 700 !important;
-    margin-bottom: 30px;
+    color: var(--main-two) !important;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid;
 }
 .formcontainer{ 
-    margin-top: 50px;
+    margin: 30px 0px 50px 0px;
+    column-gap: 30px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 50px;
 }
-.Addform.row { 
-    margin: 5% 25%;
-    border: 2px solid var(--main-red);
-    padding: 30px;
-    border-radius: 20px;
+.Addform.row {
+    padding: 0px 30px;
 }
 
 .Goback a svg{
-    color: var(--main-red);
+    color: var(--main-two);
     font-size: 20px;
 }
 
@@ -29,4 +32,27 @@
     flex-direction: row;
     column-gap: 10px;
 }
+
+button.btntype2.btn.btn-primary {
+    width: auto;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+button.btntype1.btn.btn-primary {
+    width: auto;
+    border-radius: 10px;
+    padding: 10px 20px;
+    margin-left: 20px;
+    color: var(--main-two);
+    --bs-btn-bg: var(--main-white);
+    border: 1px solid var(--main-two);
+}
+
+button.btntype1.btn.btn-primary:hover { 
+    background-color: var(--main-two);
+    color: var(--main-white);
+    border: 1px solid var(--main-two);
+}
+
 

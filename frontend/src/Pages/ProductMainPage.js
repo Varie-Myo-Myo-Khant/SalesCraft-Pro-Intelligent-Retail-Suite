@@ -5,24 +5,18 @@ import { FaEdit, FaPlusCircle, FaSearch, FaTimes, FaTrashAlt } from "react-icons
 import { Container,  Row, Col } from 'react-bootstrap';
 import { getCategories } from "../Slice/categorySlice";
 import { getProducts,searchByProductName,removeProduct,setEditProduct} from "../Slice/productSlice";
-import { useNavigate } from "react-router-dom";
-import ClipLoader from "react-spinners/ClipLoader";
+import { useNavigate } from "react-router-dom"; 
 import "../Styles/product_category.css";
-
+import { Loading } from "./Loading";
 
 export const ProductMainPage = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-
+  const navigate = useNavigate(); 
   
   //for products data
   const { products,loading,filterProduct} = useSelector((state) => state.product);  
-   
-  //to control the listing of products
-   let [currentproduct,setCurrentProduct]=useState(products)
    //for search query
-  const [searchQuery, setSearchQuery] = useState("");
-  //for inputfield cursor focus
+  const [searchQuery, setSearchQuery] = useState(""); 
 
 
   // Get categories for category section
@@ -35,12 +29,13 @@ export const ProductMainPage = () => {
       dispatch(getProducts());
     }, [dispatch]);
 
-   
+   //to control the listing of products
+   let [currentproduct,setCurrentProduct]=useState(products)
 
    //searching     
     const handleInputChange = (event) => {
     setSearchQuery(event.target.value);
-        // Dispatch the action with the search query
+    // Dispatch the action with the search query
     dispatch(searchByProductName(event.target.value));
     setCurrentProduct(filterProduct)
   
@@ -61,24 +56,20 @@ export const ProductMainPage = () => {
         productName, productImage,productPrice,stockQuantity,category, userId,editProductId:product.id,
       })
     )
-    navigate("/dashboard/addproduct")
+    navigate("/addproduct")
   }
 
 const removequery=()=>{
   setSearchQuery("");
   setCurrentProduct(products)
 }
-  //for loading effect
-  const override = {
-    display: "block",
-    margin: "0 auto",
-  };
+   
   
 
 
   return (
    
-      <Container>
+      <Container className="mainLayout">
         <Row className="uppderBar">
           <Col className="Search">
             <div className="search-wrapper">
@@ -92,10 +83,8 @@ const removequery=()=>{
               />
               {(searchQuery) && <FaTimes className="clear-icon" onClick={removequery} />}
             </div>
-          </Col>
-
-         
-          <Col md="auto" className="AddNew">
+          </Col>  
+          <Col className="AddNew">
             <Link to="/addproduct">
               <FaPlusCircle className="menu-icon" />
               Add New Product
@@ -103,34 +92,43 @@ const removequery=()=>{
           </Col>
         </Row>
 
-        <Row className="categoryContainer">
-           {
-           loading&& 
-           <ClipLoader size="60" color="var(--main-red)" cssOverride={override} />
-           }
+        <Row className="productContainer">
+        {loading&&<Loading loading={loading}/>}
             
         {currentproduct !== undefined && currentproduct.map((product) => (
-              <Col key={product.id} className="categoryCard"> 
-                
-                 <img src={product.productImage} className="categoryimg" alt={product.productName} /> 
-                <span className="categoryName">{product.productName}</span> 
-                <Row>
-                  <Col>
-                    <button className="product_edit" type="button" onClick={()=>setEdit(product)}>
-                      <FaEdit className="menu-icon" />
-                      </button>
+              <Col key={product.id} className="productCard"> 
+                <Row className="productfirst">
+                  <Col md="auto" className="pleft">
+                   <img src={product.productImage} className="productImg" alt={product.productName} /> 
                   </Col>
-                  <Col>
-                    <button className="product_delete" type="button" onClick={()=>removeItem(product)}>
-                      <FaTrashAlt className="menu-icon" />
-                    </button>
+                   <Col className="pright">
+                          <span className="productName">
+                            {product.productName ? 
+                          (product.productName.charAt(0).toUpperCase() + product.productName.slice(1).replace(/-/g, ' ')) : ("")}
+                          </span> 
+                          <span className="pother">
+                            Price : {product.productPrice} MMK
+                          </span> 
+                          <span className="pother">
+                            On Hand : {product.stockQuantity} qt
+                          </span> 
+                          <span className="pbtnrow"> 
+                            <button className="product_edit" type="button" onClick={()=>setEdit(product)}>
+                              <FaEdit className="menu-icon" />
+                              </button>
+                          
+                            <button className="product_delete" type="button" onClick={()=>removeItem(product)}>
+                              <FaTrashAlt className="menu-icon" />
+                            </button>
+                          
+                        </span>
                   </Col>
                 </Row>
+                
+                
+                
               </Col>
-            ))} 
-    
-        
-         
+            ))}  
         </Row>
       
       </Container>

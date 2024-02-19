@@ -1,64 +1,57 @@
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-// import { getOrders } from "../features/order/orderSlice";
-// import { allUsers } from "../Slice/authSlice";
+import React from "react";
+import { useSelector } from "react-redux";
+import {Container,Row,Col} from 'react-bootstrap';
+import "../Styles/report.css"
+import { FaArrowRight, FaChartLine, FaListAlt, FaProductHunt, FaShoppingCart } from "react-icons/fa";
+import {Link } from "react-router-dom";
 
 export const Report = () => {
-  const dispatch = useDispatch();
   const { categories } = useSelector((state) => state.category);
   const { products } = useSelector((state) => state.product);
-//   const { orders } = useSelector((state) => state.order);
-//   const { users } = useSelector((state) => state.auth);
-
-//   useEffect(() => {
-//     dispatch(getOrders());
-//     dispatch(allUsers());
-//   }, [dispatch]);
+  const {orders}=useSelector((state)=>state.order);
 
   return (
-    <>
-      <div className="statistic-layout">
-        <div className="statistics">
-          <span className="statistic-title">Orders</span>
-          <div className="statistic-count">
-            <div className="image">
-              {/* <img src={require("../images/order.png")} alt="..." /> */}
-            </div>
-            {/* <span>{orders.length}</span> */}
-          </div>
-        </div>
+    <Container className="reportContainer">
+     
+      <Row className="statistic-layout">
 
-        <div className="statistics">
-          <span className="statistic-title">Users</span>
-          <div className="statistic-count">
-            <div className="image">
-              {/* <img src={require("../images/users.png")} alt="..." /> */}
-            </div>
-            {/* <span>{users.length}</span> */}
-          </div>
-        </div>
+        <Col className="statistics">
+          <span className="statistic-title"><FaChartLine />Total Sales</span>
+          <span className="statistic-number">${orders.length}</span>
+         <span className="statistic-details"> <Link to="/history"> View Details <FaArrowRight/></Link> </span> 
+        </Col>
 
-        <div className="statistics">
-          <span className="statistic-title">Products</span>
-          <div className="statistic-count">
-            <div className="image">
-              {/* <img src={require("../images/products.png")} alt="..." /> */}
-            </div>
-            <span>{products.length}</span>
-          </div>
-        </div>
+        <Col className="statistics">
+          <span className="statistic-title"><FaShoppingCart/>  Orders</span>
+          <span className="statistic-number">${orders.length}</span> 
+          <span className="statistic-details"> <Link to="/history"> View Details <FaArrowRight/></Link> </span> 
+        </Col>
 
-        <div className="statistics">
-          <span className="statistic-title">Categories</span>
-          <div className="statistic-count">
-            <div className="image">
-              {/* <img src={require("../images/category.png")} alt="..." /> */}
-            </div>
-            <span>{categories.length}</span>
-          </div>
-        </div>
-      </div>
-    </>
+
+       <Col className="statistics">
+          <span className="statistic-title"><FaProductHunt/>Products</span> 
+          <span className="statistic-number">{products.length}</span>
+          <span className="statistic-details"> <Link to="/product"> View Details <FaArrowRight/></Link> </span> 
+        </Col>
+
+        <Col className="statistics">
+          <span className="statistic-title"><FaListAlt/>Categories</span>
+          <span className="statistic-number">{categories.length}</span>
+          <span className="statistic-details"> <Link to="/category"> View Details <FaArrowRight/></Link> </span> 
+        </Col>
+      
+      </Row>
+      <Row>
+        <Col>
+        Top Selling Report
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+        Promotion Report
+        </Col>
+      </Row>
+    </Container>
   );
 };
 

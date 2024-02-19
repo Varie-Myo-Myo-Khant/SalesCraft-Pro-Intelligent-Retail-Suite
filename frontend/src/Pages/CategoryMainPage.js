@@ -5,6 +5,7 @@ import { FaSearch,FaEdit,FaTimes, FaPlusCircle, FaTrashAlt } from "react-icons/f
 import { Container,  Row, Col } from 'react-bootstrap';
 import { getCategories,setEditCategory,searchByCategoryName,removeCategory} from "../Slice/categorySlice";
 import { useNavigate } from "react-router-dom";
+import { Loading } from "./Loading";
 import "../Styles/product_category.css";
 
 export const CategoryMainPage = () => {
@@ -12,8 +13,7 @@ export const CategoryMainPage = () => {
   const dispatch = useDispatch();
    const navigate = useNavigate();
   const { categories,loading,filterCategory } = useSelector((state) => state.category); 
-  //to control the listing of categories
-   let [currentCategories,setCurrentCategories]=useState(categories)
+
   //for search query
   const [searchQuery, setSearchQuery] = useState("");
   //for inputfield cursor focus
@@ -24,6 +24,8 @@ export const CategoryMainPage = () => {
     dispatch(getCategories());
   }, [dispatch]);
 
+  //to control the listing of categories
+   let [currentCategories,setCurrentCategories]=useState(categories)
  //searching     
     const handleInputChange = (event) => {
     setSearchQuery(event.target.value);
@@ -42,6 +44,11 @@ export const CategoryMainPage = () => {
     setCurrentCategories(categories)
   };
 
+  const removequery=()=>{
+  setSearchQuery(""); 
+  setCurrentCategories(categories)
+}
+
   const setEdit = (cat) => {
   //get data from current category to set in the form when edit.
   const { category, categoryImage, userId } = cat;
@@ -57,8 +64,8 @@ export const CategoryMainPage = () => {
   }
 
   return (
-    <>
-      <Container>
+
+      <Container className="mainLayout">
         <Row className="uppderBar">
             
           <Col className="Search">
@@ -72,25 +79,26 @@ export const CategoryMainPage = () => {
                   value={searchQuery}
                   onChange={handleInputChange}
                 />
-                {searchQuery && <FaTimes className="clear-icon" onClick={() => setSearchQuery("")} />}
+                {searchQuery && <FaTimes className="clear-icon" onClick={removequery} />}
               </div>
             </Col>
           
-          <Col md="auto" className="AddNew">
-            <Link to="/dashboard/addcategory">
+          <Col className="AddNew">
+            <Link to="/addcategory">
               <FaPlusCircle className="menu-icon" />
               Add New Category
             </Link>
           </Col>
         </Row>
+
         <Row className="categoryContainer">
-         {currentCategories===undefined || currentCategories ===null? setCurrentCategories(categories):'' }  
+        {loading&&<Loading loading={loading}/>}
             
         {currentCategories !== undefined && currentCategories.map((cat) => (
               <Col key={cat.id} className="categoryCard"> 
                 
                  <img src={cat.categoryImage} className="categoryimg" alt={cat.category} /> 
-                <span className="categoryName">{cat.category}</span> 
+                <span className="categoryName">{cat.category.charAt(0).toUpperCase() + cat.category.slice(1)}</span> 
                 <Row>
                    <Col>
                      <button className="product_edit" type="button" onClick={()=>setEdit(cat)}>
@@ -113,6 +121,6 @@ export const CategoryMainPage = () => {
 
         </Row>
       </Container>
-    </>
+
   );
 }

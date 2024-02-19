@@ -6,8 +6,11 @@ import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import { FaArrowAltCircleLeft } from "react-icons/fa";
 import "../Styles/addform.css"  
+import { useNavigate } from 'react-router-dom';
 
 export const AddCategory = () => {
+  const navigate = useNavigate();
+  
   const { user } = useSelector((store) => store.auth);
   const { category,categoryImage,isEditing,editCategoryId} = useSelector((store) => store.category);
   const dispatch = useDispatch();  
@@ -92,7 +95,7 @@ export const AddCategory = () => {
             <Form.Label>Category Name</Form.Label> 
             <Form.Control
               type="text"
-              placeholder="Category"
+              placeholder="Add Category"
               name="category"
               value={category}
               onChange={onChange}
@@ -109,7 +112,8 @@ export const AddCategory = () => {
               ref={fileInputRef} // Attach ref to the file input field
             /> 
           </Form.Group> 
-          <Button variant="primary" type="submit">{isEditing?"Update Category":"Add Category"}</Button>
+          <Button variant="primary" className="btntype2" type="submit">{isEditing?"Update Category":"Add Category"}</Button>
+          <Button variant="primary" className="btntype1"  onClick={() => navigate('/category')}>Cancel</Button>
         </Form> 
       </Row>
        
