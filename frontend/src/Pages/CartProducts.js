@@ -64,13 +64,6 @@ export const CartProducts = () => {
       const { cartItems } = useSelector((state) => state.cart);
       const { user } = useSelector((state) => state.auth);
 
-      useEffect(() => {
-        dispatch(productSubTotal());
-        dispatch(productTax());
-        dispatch(productTotalAmount());
-      }, [dispatch, cartItems]);
-
-
 
 
   return (

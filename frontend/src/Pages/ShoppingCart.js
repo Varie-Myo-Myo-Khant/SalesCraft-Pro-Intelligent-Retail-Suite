@@ -11,7 +11,7 @@ import {
 } from "../Slice/cartSlice";
 import "../Styles/cart.css";
 import { Row,Col } from "react-bootstrap";
-import { FaMinus, FaPlus, FaTimes } from "react-icons/fa";
+import { FaAngleRight, FaMinus, FaPlus, FaTimes } from "react-icons/fa";
 
 export const ShoppingCart = () => {
   const { cartItems, subTotal, totalAmount, tax } = useSelector((state) => state.cart);
@@ -97,7 +97,8 @@ export const ShoppingCart = () => {
         <p className="pay">
           <button className="btntype2" disabled={cartItems.length === 0} onClick={() => navigate("/checkout")}>
 
-            Checkout
+            <span>Pay </span>
+          <span><FaAngleRight/></span>
           </button>
         </p>
     </Row>

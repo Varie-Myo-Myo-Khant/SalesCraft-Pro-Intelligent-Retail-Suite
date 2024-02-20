@@ -179,7 +179,7 @@ button.product_edit {
     gap: 20px;
     grid-template-columns: repeat(auto-fill,minmax(140px,1fr));
     max-height: 70vh;
-    overflow: scroll;
+    overflow-y: auto;
 }
 
 .orderCard {

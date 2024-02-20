@@ -1,3 +1,4 @@
+/* for shopping cart */
 .cartHeader{
     padding: 10px 0px; 
     border-bottom: 1px solid var(--main-two); 
@@ -101,9 +102,10 @@ p.pay {
 button.btntype2 {
     padding: 10px;
     width: 100%;
-    border-radius: 20px;
     background: var(--main-two);
     color: var(--main-white);
+    display: flex;
+    justify-content: space-between;
 }
 button.btntype2:hover {
     border: 1px solid var(--main-two);
@@ -116,3 +118,5 @@ button.btntype2:hover {
   color:var(--main-white);
   cursor:not-allowed;
 }
+
+/* for checkout */

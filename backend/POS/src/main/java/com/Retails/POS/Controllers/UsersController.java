@@ -25,19 +25,19 @@ public class UsersController {
         return ResponseEntity.ok(usersList);
     }
 
-    @GetMapping(value = "/search/{id}")
+    @GetMapping(value = "/{id}")
     public ResponseEntity<User> getUserById(@PathVariable String id){
         User user = usersServices.getUserById(id);
         return ResponseEntity.ok(user);
     }
 
-    @PostMapping(value = "/save")
+    @PostMapping(value = "/")
     public ResponseEntity<String> saveUser(@RequestBody User user){
         usersServices.saveUser(user);
         return ResponseEntity.ok(user.getId());
     }
 
-    @PutMapping(value = "/update/{id}")
+    @PutMapping(value = "/{id}")
     public ResponseEntity<User> updateUser(@RequestBody User user, @PathVariable String id){
         user.setId(id);
         usersServices.saveUser(user);

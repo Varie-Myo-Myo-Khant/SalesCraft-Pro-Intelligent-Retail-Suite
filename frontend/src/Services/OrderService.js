@@ -16,8 +16,8 @@ import authHeader from './AuthHeader';
     }
 
     // delete product by id
-    const deleteOrder=async(order,token)=> {
-        const response = await httpRequest.delete(`/order/${order.id}`,{ headers: authHeader(token) }); 
+    const deleteOrder=async(order,token)=> {  
+        const response = await httpRequest.delete(`/order/${order._id}`,{ headers: authHeader(token) }); 
         return response.data;
     }
 

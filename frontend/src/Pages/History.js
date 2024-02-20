@@ -1,66 +1,78 @@
-import React from "react";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getOrders,removeOrder } from "../Slice/orderSlice"; 
-import { Container,  Row, Col } from 'react-bootstrap';
+import { getOrders, removeOrder } from "../Slice/orderSlice";
+import { Container, Row, Col, Accordion, Button, Table } from "react-bootstrap";
 import { OrderPrint } from "./OrderPrint";
 import { useNavigate } from "react-router-dom";
-
+import {FaTrashAlt } from "react-icons/fa";
 
 export const History = () => {
   const { orders } = useSelector((state) => state.order);
   const dispatch = useDispatch();
-const navigate = useNavigate();
-
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getOrders());
   }, [dispatch]);
 
-  const deleteOrder = (order) => {
-    dispatch(removeOrder(order));
-    navigate("/dashboard");
-  };
+  const deleteOrder = (order)  => {
+  
+  dispatch(removeOrder(order));
+  window.location.reload()
+};
 
   return (
     <Container>
-       
-       {orders !== undefined && orders.map((order) => (
-    <Col className="order-details" key={order.id}>
-        <div className="order-title">
-            <span className="order-id">Order Id: # {order.id}</span>
-            <span className="order-time"> Customer: {order.customer} </span>
-        </div>
+      <Row>
+        <Col>
+          <h2>Order History</h2>
+          <Accordion defaultActiveKey="0">
+            {orders !== undefined &&
+              orders.map((order, index) => (
+                <Accordion.Item eventKey={index.toString()} key={index}>
+                  <Accordion.Header>
+                    <Col>Order Number: {order.orderNumber}</Col>
+                    <Col>Customer Name: {order.customer?order.customer:"Walk In Customer"}</Col>
+                   
+                  </Accordion.Header>
+                  <Accordion.Body>
+                    <Table striped bordered hover>
+                      <thead>
+                        <tr>
 
-        <div className="order-total">
-            <span className="qta">
-            Sold :
-            {order.cartItems.reduce((prev, cur) => {
-                return prev + cur.quantity;
-            }, 0)}
-            </span>
-
-        <span className="order-price-detail">
-          <span className="order-price">$ {order.totalAmount.toFixed(2)}</span>
-          <OrderPrint order={order} />
-        </span>
-      </div>
-
-      
-        <div>
-          <button
-            className="order-delete"
-            onClick={() => {
-              deleteOrder(order);
-            }}
-          >
-            X
-          </button>
-        </div>
-      
-    </Col>
-            ))} 
-   
+                          <th>Product</th>
+                          <th>Quantity</th>
+                          <th>Amount</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {order.cartItems.map((item, itemIndex) => (
+                          <tr key={itemIndex}>
+                            <td>{item.productName}</td>
+                            <td>{item.quantity}</td>
+                            <td>${(item.productPrice * item.quantity).toFixed(2)}</td>
+                          </tr>
+                        ))}
+                        <tr>
+                          <td colSpan="2"><strong>Subtotal:</strong></td>
+                          <td>${order.subTotal.toFixed(2)}</td>
+                        </tr>
+                        <tr>
+                          <td colSpan="2"><strong>Total Amount:</strong></td>
+                          <td>${order.totalAmount.toFixed(2)}</td>
+                        </tr>
+                      </tbody>
+                    </Table> 
+                    <Col><Button type="button" className="product_delete" onClick={() => deleteOrder(order)}><FaTrashAlt/></Button></Col>
+                  </Accordion.Body>
+                </Accordion.Item>
+                 
+              ))}
+          </Accordion>
+        </Col>
+      </Row>
     </Container>
   );
 };
+
+

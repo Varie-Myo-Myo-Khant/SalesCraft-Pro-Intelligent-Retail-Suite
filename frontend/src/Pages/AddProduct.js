@@ -160,8 +160,10 @@ export const AddProduct = () => {
               ))}
               </Form.Select>
           </Form.Group></Row>
-          <Button variant="primary" className="btntype2" type="submit">{isEditing?"Update Product":"Add Product"}</Button>
+          <Row>
+            <Button variant="primary" className="btntype2" type="submit">{isEditing?"Update Product":"Add Product"}</Button>
           <Button variant="primary" className="btntype1"  onClick={() => navigate('/product')}>Cancel</Button>
+          </Row>
         </Form> 
       </Row>
        

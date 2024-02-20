@@ -32,8 +32,9 @@ export const getOrders = createAsyncThunk('order/getOrders', async (_, thunkAPI)
     }
 });
 
-export const removeOrder = createAsyncThunk('product/removeOrder', async (order, thunkAPI) => {
+export const removeOrder = createAsyncThunk('order/removeOrder', async (order, thunkAPI) => {
     try {
+          
         return await OrderService.deleteOrder(order, thunkAPI)
     } catch (error) {
          return thunkAPI.rejectWithValue(error.response.data)

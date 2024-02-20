@@ -112,8 +112,9 @@ export const AddCategory = () => {
               ref={fileInputRef} // Attach ref to the file input field
             /> 
           </Form.Group> 
+          <Row>
           <Button variant="primary" className="btntype2" type="submit">{isEditing?"Update Category":"Add Category"}</Button>
-          <Button variant="primary" className="btntype1"  onClick={() => navigate('/category')}>Cancel</Button>
+          <Button variant="primary" className="btntype1"  onClick={() => navigate('/category')}>Cancel</Button></Row>
         </Form> 
       </Row>
        
