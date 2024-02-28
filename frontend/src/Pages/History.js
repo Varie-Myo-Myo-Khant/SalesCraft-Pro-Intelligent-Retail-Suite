@@ -4,12 +4,13 @@ import { getOrders, removeOrder } from "../Slice/orderSlice";
 import { Container, Row, Col, Accordion, Button, Table } from "react-bootstrap";
 import { OrderPrint } from "./OrderPrint";
 import { useNavigate } from "react-router-dom";
-import {FaTrashAlt } from "react-icons/fa";
+import {FaPrint, FaTrashAlt } from "react-icons/fa";
 
 export const History = () => {
   const { orders } = useSelector((state) => state.order);
+  const { user } = useSelector((store) => store.auth);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+ 
 
   useEffect(() => {
     dispatch(getOrders());
@@ -29,11 +30,15 @@ export const History = () => {
           <Accordion defaultActiveKey="0">
             {orders !== undefined &&
               orders.map((order, index) => (
+                 (order.userId === user.id ) && (
                 <Accordion.Item eventKey={index.toString()} key={index}>
+
                   <Accordion.Header>
+                     <Col> <OrderPrint order={order} /></Col>
                     <Col>Order Number: {order.orderNumber}</Col>
                     <Col>Customer Name: {order.customer?order.customer:"Walk In Customer"}</Col>
-                   
+                   <Col><a type="button" className="product_delete" onClick={() => deleteOrder(order)}><FaTrashAlt/></a></Col>
+                  
                   </Accordion.Header>
                   <Accordion.Body>
                     <Table striped bordered hover>
@@ -51,6 +56,7 @@ export const History = () => {
                             <td>{item.productName}</td>
                             <td>{item.quantity}</td>
                             <td>${(item.productPrice * item.quantity).toFixed(2)}</td>
+                            
                           </tr>
                         ))}
                         <tr>
@@ -63,11 +69,12 @@ export const History = () => {
                         </tr>
                       </tbody>
                     </Table> 
-                    <Col><Button type="button" className="product_delete" onClick={() => deleteOrder(order)}><FaTrashAlt/></Button></Col>
+                    
                   </Accordion.Body>
                 </Accordion.Item>
                  
-              ))}
+              ))
+            )}
           </Accordion>
         </Col>
       </Row>

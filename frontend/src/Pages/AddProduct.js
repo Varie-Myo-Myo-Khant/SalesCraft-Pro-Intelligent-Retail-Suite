@@ -42,7 +42,7 @@ export const AddProduct = () => {
       console.error('Error: ', error);
     }; 
   }
-
+ 
   // Handle form submit
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -54,16 +54,25 @@ export const AddProduct = () => {
 
   //checking isEditing state and calling editproduct slice
   if(isEditing){
-    dispatch(editProduct({
-      product:{id:editProductId,productName,productImage,productPrice,stockQuantity,category,userId:user.id},
-      }
-    ))
-    dispatch(clearValues());
-    return;
-  }
+    dispatch(editProduct({editProductId,product:{productName, productPrice,productImage,stockQuantity,category, userId: user.id }}))
+    .then(() => {
+        // Clear form values after successful submission
+        dispatch(clearValues());
+        toast.success("Successfully Update the Product!");
 
+        // Reset file input value to clear the selected file
+        if (fileInputRef.current) {
+          fileInputRef.current.value = ""; // Reset file input value
+        }
+      })
+      .catch((error) => {
+        // Handle error
+        toast.error("Failed to Add New Product. Please Try Again!");
+      }); dispatch(clearValues());
+  }
+  else{
   //if not edit continue with creating product.
-    dispatch(productCreate({ productName, productImage,productPrice,stockQuantity,category, userId: user.id }))
+    dispatch(productCreate({ productName, productPrice,productImage,stockQuantity,category, userId: user.id}))
       .then(() => {
         // Clear form values after successful submission
         dispatch(clearValues());
@@ -79,7 +88,9 @@ export const AddProduct = () => {
         toast.error("Failed to Add New Product. Please Try Again!");
       }); dispatch(clearValues());
      
+}
 
+navigate("/product")
   };
 
   // Handle input change
@@ -114,17 +125,23 @@ export const AddProduct = () => {
               onChange={onChange}
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Row className="addImage">
+            
+          {productImage && (<Col md="auto">
+                <img src={productImage} alt="Product Image" className="addsmallimage" /></Col> 
+            )}  
+          <Form.Group className="mb-3" as={Col} controlId="formBasicEmail">
             <Form.Label>Product Image</Form.Label>
             <Form.Control
               type="file"
               placeholder="Category Image"
-              name="image"
+              name="productImage"
               accept="image/*"
               onChange={convertToBase64}
               ref={fileInputRef} // Attach ref to the file input field
             /> 
              </Form.Group> 
+            </Row>
              <Row>
             <Form.Group className="mb-3" as={Col} controlId="formBasicEmail">
             <Form.Label>Product Price</Form.Label> 
@@ -156,7 +173,8 @@ export const AddProduct = () => {
             >
               <option value="Select Category">Select Category</option>
               {categories.map((c)=>(
-                <option key={c.id} value={c.category}>{c.category}</option>
+                 (c.userId === user.id ) && (
+                <option key={c.id} value={c.category}>{c.category}</option>)
               ))}
               </Form.Select>
           </Form.Group></Row>

@@ -1,6 +1,7 @@
 package com.Retails.POS.Controllers;
 
 import com.Retails.POS.Models.Products;
+import com.Retails.POS.Models.Session;
 import com.Retails.POS.Services.ProductsServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -52,16 +53,19 @@ public class ProductsController {
         products.setCreatedTime(new Date());
         productsServices.saveProduct(products);
         return ResponseEntity.ok(productsServices.toString());
+
     }
 
     //update product by id
     @PutMapping(value = "/product/{id}")
     public ResponseEntity<Products> updateProduct(@RequestBody Products products, @PathVariable String id){
-        products.setId(id);
-        products.setUpdatedTime(new Date());
-        productsServices.saveProduct(products);
-        return ResponseEntity.ok(products);
+        Products updatedProducts = productsServices.updateProducts(id, products);
+        if (updatedProducts == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(updatedProducts);
     }
+
 
     //delete product by id
     @DeleteMapping(value = "/product/{id}")

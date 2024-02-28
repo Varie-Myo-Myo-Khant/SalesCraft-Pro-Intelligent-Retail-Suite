@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React, {useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   increase,
@@ -11,16 +10,16 @@ import {
 } from "../Slice/cartSlice";
 import "../Styles/cart.css";
 import { Row,Col } from "react-bootstrap";
-import { FaAngleRight, FaMinus, FaPlus, FaTimes } from "react-icons/fa";
+import {FaMinus, FaPlus, FaShoppingCart, FaTimes } from "react-icons/fa";
+import { CheckOutPayment } from "./CheckOutPayment";
 
 export const ShoppingCart = () => {
-  const { cartItems, subTotal, totalAmount, tax } = useSelector((state) => state.cart);
-  const navigate = useNavigate();
+  const { cartItems} = useSelector((state) => state.cart);
+
   const dispatch = useDispatch();
 
   // Get current amount
   useEffect(() => {
-  
       dispatch(productSubTotal());
       dispatch(productTax());
       dispatch(productTotalAmount());
@@ -30,8 +29,12 @@ export const ShoppingCart = () => {
   return (
     <>
       <Row className="cartHeader">
-      <h3>Total Items - {cartItems ? cartItems.length : 0}</h3>
+      <h3 className="cartTitle">
+      <span > <FaShoppingCart/> Cart </span>
+      <span>Total Items - {cartItems ? cartItems.length : 0}</span>
+      </h3>  
       </Row>  
+
     <Row className="cartItemContainer">
       {cartItems && cartItems.length > 0 ? (
         cartItems.map((cart) => (
@@ -52,7 +55,7 @@ export const ShoppingCart = () => {
               <h3>{cart.productName}</h3> 
               <Row className="priceRow">
                 <Col>
-                   <p>$ {cart.productPrice}</p>
+                   <p>$ {cart.productPrice * cart.quantity}</p>
                 </Col>
                <Col>
                 <button className="increment-btn" type="button" onClick={() => {
@@ -79,29 +82,8 @@ export const ShoppingCart = () => {
           </Row>
       )}
   </Row>
-  <Row className="cartAmount">
-        <p className="total-items">
-          <span className="items-count">Items ({cartItems ? cartItems.length : 0})</span>
-          <span className="items-price">$ {subTotal.toFixed(2)}</span>
-        </p>
-        <p className="item-taxs">
-          <span className="item-tax">Tax (%8)</span>
-          <span className="item-tax-price">$ {tax.toFixed(2)}</span>
-        </p>
-        <p className="divider"></p>
-        <p className="total">
-          <span className="total-text">Total </span>
-          <span className="total-item-price">$ {totalAmount.toFixed(2)}</span>
-        </p>
-
-        <p className="pay">
-          <button className="btntype2" disabled={cartItems.length === 0} onClick={() => navigate("/checkout")}>
-
-            <span>Pay </span>
-          <span><FaAngleRight/></span>
-          </button>
-        </p>
-    </Row>
+        <CheckOutPayment />
+   
     </>
   );
 };

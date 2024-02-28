@@ -13,6 +13,7 @@ export const CategoryMainPage = () => {
   const dispatch = useDispatch();
    const navigate = useNavigate();
   const { categories,loading,filterCategory } = useSelector((state) => state.category); 
+  const { user } = useSelector((store) => store.auth);
 
   //for search query
   const [searchQuery, setSearchQuery] = useState("");
@@ -57,9 +58,10 @@ export const CategoryMainPage = () => {
       category,
       categoryImage,
       userId,
-      editCategoryId: category.id,
+      editCategoryId: cat.id,
     })
   );
+
     navigate("/addcategory")
   }
 
@@ -95,6 +97,8 @@ export const CategoryMainPage = () => {
         {loading&&<Loading loading={loading}/>}
             
         {currentCategories !== undefined && currentCategories.map((cat) => (
+         
+         (cat.userId === user.id ) && (
               <Col key={cat.id} className="categoryCard"> 
                 
                  <img src={cat.categoryImage} className="categoryimg" alt={cat.category} /> 
@@ -111,7 +115,7 @@ export const CategoryMainPage = () => {
                         </button>
                       </Col>
                 </Row>
-              </Col>
+              </Col>)
             ))} 
     
         

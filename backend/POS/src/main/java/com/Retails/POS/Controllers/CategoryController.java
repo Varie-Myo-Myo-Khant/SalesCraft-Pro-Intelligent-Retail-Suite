@@ -48,9 +48,14 @@ public class CategoryController {
         Category existingCategory = categoryServices.getCategoryById(id);
         if (existingCategory != null) {
             // Update existingCategory fields with category fields
-            existingCategory.setCategory(category.getCategory());
-            existingCategory.setCategoryImage(category.getCategoryImage());
-            existingCategory.setUserId(category.getUserId());
+            if (category.getCategory()!=null){
+                existingCategory.setCategory(category.getCategory());
+            }
+            if (category.getCategoryImage()!=null) {
+                existingCategory.setCategoryImage(category.getCategoryImage());
+            }
+            if (category.getUserId()!=null) {
+                existingCategory.setUserId(category.getUserId());}
             // Update updatedTime to current time
             existingCategory.setUpdatedTime(new Date());
             Category updatedCategory = categoryServices.saveCateogry(existingCategory);

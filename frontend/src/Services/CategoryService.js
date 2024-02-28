@@ -20,8 +20,8 @@ const getCategories = async (token) => {
     }
 
     // update the data
-     const updateCategory=async(category,token)=> {
-        const response = await httpRequest.put(`/category/${category.id}`,category, { headers: authHeader(token) }); 
+     const updateCategory=async(categoryId,category,token)=> {
+        const response = await httpRequest.put(`/category/${categoryId}`,category, { headers: authHeader(token) }); 
         return response.data;
     }
 

@@ -13,9 +13,11 @@ import {PrivateRoute} from './Pages/PrivateRoute';
 import { CategoryMainPage } from './Pages/CategoryMainPage';
 import { Order } from './Pages/Order';
 import { Report } from './Pages/Report';
-import { Checkout } from './Pages/Checkout';
 import { Notfound } from './Pages/Notfound';
 import { History } from './Pages/History';
+import {Session} from './Pages/Session';
+import { Profile } from './Pages/Profile';
+
 function App() {
   return (
     <>
@@ -32,13 +34,14 @@ function App() {
               </PrivateRoute>
             } name="contentcontainer">
               <Route path='dashboard' element={<Report />} name="dashboard" />
-               <Route path='checkout' element={<Checkout />} name="checkout" />
               <Route path='product' element={<ProductMainPage />} name="product" />
               <Route path='category' element={<CategoryMainPage />} name="category" />
               <Route path='addproduct' element={<AddProduct />} name="addproduct" />
               <Route path='addcategory' element={<AddCategory />} name="addcategory" />
+              <Route path='session' element={<Session />} name="session" />
+              <Route path='history' element={<History />} name="history" />
               <Route path='order' element={<Order />} name="order" />
-               <Route path='history' element={<History />} name="history" />
+              <Route path='profile' element={<Profile />} name="profile" />
                
           </Route>  
           <Route path='*' element={<Notfound />}/>

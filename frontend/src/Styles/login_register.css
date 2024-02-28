@@ -1,5 +1,5 @@
 .home{
-    background-image: url("../Images/bg3.png");
+    background-image: url("../Images/10.svg");
     min-height: 100vh;  
     background-attachment: fixed;
     background-size: cover;
@@ -28,7 +28,7 @@
 .formbgn{
     padding: 30px;
     background-color:var(--white-grey);
-    border-radius: 30px;
+    border-radius: 10px;
     width: 400px;
 }
 
@@ -41,7 +41,7 @@
 
 
 .formbgn .myinput{
-   border-radius: 30px !important;
+   border-radius: 10px !important;
 }
 .mb-3 {
     margin-bottom: 30px!important;
@@ -49,7 +49,7 @@
 
 button.btn.btn-primary {
     width: 100%;
-    border-radius: 30px;
+    border-radius: 10px;
     --bs-btn-bg:var(--main-two);
     border: 1px solid var(--main-two);
     margin-top: 20px !important;
@@ -73,7 +73,7 @@ button.btn.btn-primary:hover {
 .newUserBgn{
     text-align: center;
     background-color:var(--main-two);
-    border-radius: 30px;
+    border-radius: 10px;
     margin-top: 30px;
     color:var(--main-white);
     padding: 30px;

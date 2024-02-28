@@ -18,7 +18,7 @@
 
 .cartAmountContainer.col { 
     display: grid; 
-    grid-template-rows: 8% auto 30%; /* Define rows with percentages */
+    grid-template-rows: 8% auto 45%; /* Define rows with percentages */
     border-left: 1px solid rgba(0, 0, 0, .22); 
     height: 90vh;
 

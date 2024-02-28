@@ -1,0 +1,13 @@
+.formcontainer.profile.container {
+    margin-top: 0px !important;
+}
+
+.mb-3.imgHere{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    column-gap: 10px;
+}
+img.smallimage {
+    height: 60px;
+}

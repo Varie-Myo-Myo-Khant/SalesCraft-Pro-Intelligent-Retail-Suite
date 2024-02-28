@@ -55,8 +55,8 @@ export const authSlice = createSlice({
         })
         .addCase(register.fulfilled, (state, action) => {
             state.loading = false
-            //state.user = action.payload
-            //addLocalStorageUser(action.payload)
+            state.user = action.payload
+            addLocalStorageUser(action.payload)
             toast.success('User Successfully Registered')
         })
         .addCase(register.rejected, (state, action) => {

@@ -30,7 +30,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   height: 100%;
   width: 100%;
-  background-color: var(--main-white) !important;
+  background-color: transparent!important;
   font-weight: 400;
   overflow-x: hidden;
   position: relative;
@@ -95,10 +95,11 @@ p,div{
 }
 
  input#formBasicEmail,input#formBasicPassword ,select#formBasicEmail{
-    border-radius: 30px;
+    border-radius: 10px;
     margin-top: 5px;
     padding:10px 20px; 
     border: 1px solid var(--main-two);
 }
+
 
 

@@ -34,8 +34,8 @@ export const cartSlice = createSlice({
         },
         productSubTotal: (state, action) => {
             state.subTotal = state.cartItems.reduce((subTotal, product) => {
-                const { productPrice, stockQuantity } = product
-                    return subTotal + productPrice * stockQuantity    
+                const { productPrice, quantity } = product
+                    return subTotal + productPrice * quantity    
             }, 0)
         },
         productTax: (state, action) => {

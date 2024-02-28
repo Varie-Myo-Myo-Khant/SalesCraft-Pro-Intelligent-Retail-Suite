@@ -61,7 +61,7 @@ export const Header=() =>{
              </div>
           </Navbar.Text>
           <Navbar.Text>
-             <a href="#login">
+             <a href="profile">
               <FaUserCircle className="menu-icon" />      
              </a>
           </Navbar.Text>

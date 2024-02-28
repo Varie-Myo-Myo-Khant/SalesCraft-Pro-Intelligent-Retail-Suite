@@ -14,6 +14,8 @@ nav.bg-body-tertiary {
 .maincontent{
   height: 100%;
   background-color: var(--main-white) !important;
+   margin-left: 0px;
+    margin-right: 0px;
 }
 
 .leftSideBar {

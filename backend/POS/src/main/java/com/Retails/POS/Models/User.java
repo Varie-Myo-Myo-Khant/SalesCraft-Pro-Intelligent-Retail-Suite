@@ -34,34 +34,36 @@ public class User {
     private Set<Role> roles = new HashSet<>();
 
     private String userImage;
-    private String userLogo;
-    private int userTax;
-    private String userAddress;
-    private String userReceiptMessage;
-    private String userPhoneNumber;
+    private String shopName;
+    private String shopLogo;
+    private int shopTax;
+    private String shopAddress;
+    private String shopReceiptMessage;
+    private String shopPhoneNumber;
     public User() {
     }
 
-    public User(String id, String username, String email, String password, Set<Role> roles, String userImage, String userLogo, int userTax, String userAddress, String userReceiptMessage, String userPhoneNumber) {
+    public User(String id, String username, String email, String password, Set<Role> roles, String userImage, String shopName, String shopLogo, int shopTax, String shopAddress, String shopReceiptMessage, String shopPhoneNumber) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
         this.roles = roles;
         this.userImage = userImage;
-        this.userLogo = userLogo;
-        this.userTax = userTax;
-        this.userAddress = userAddress;
-        this.userReceiptMessage = userReceiptMessage;
-        this.userPhoneNumber = userPhoneNumber;
+        this.shopName = shopName;
+        this.shopLogo = shopLogo;
+        this.shopTax = shopTax;
+        this.shopAddress = shopAddress;
+        this.shopReceiptMessage = shopReceiptMessage;
+        this.shopPhoneNumber = shopPhoneNumber;
     }
 
-    public User(String id, String username, String password)
-    {
-        this.id = id;
+    public User(String username, String email, String password) {
         this.username = username;
+        this.email = email;
         this.password = password;
     }
+
     public String getId() {
         return id;
     }
@@ -110,43 +112,51 @@ public class User {
         this.userImage = userImage;
     }
 
-    public String getUserLogo() {
-        return userLogo;
+    public String getShopName() {
+        return shopName;
     }
 
-    public void setUserLogo(String userLogo) {
-        this.userLogo = userLogo;
+    public void setShopName(String shopName) {
+        this.shopName = shopName;
     }
 
-    public int getUserTax() {
-        return userTax;
+    public String getShopLogo() {
+        return shopLogo;
     }
 
-    public void setUserTax(int userTax) {
-        this.userTax = userTax;
+    public void setShopLogo(String shopLogo) {
+        this.shopLogo = shopLogo;
     }
 
-    public String getUserAddress() {
-        return userAddress;
+    public int getShopTax() {
+        return shopTax;
     }
 
-    public void setUserAddress(String userAddress) {
-        this.userAddress = userAddress;
+    public void setShopTax(int shopTax) {
+        this.shopTax = shopTax;
     }
 
-    public String getUserReceiptMessage() {
-        return userReceiptMessage;
+    public String getShopAddress() {
+        return shopAddress;
     }
 
-    public void setUserReceiptMessage(String userReceiptMessage) {
-        this.userReceiptMessage = userReceiptMessage;
+    public void setShopAddress(String shopAddress) {
+        this.shopAddress = shopAddress;
     }
 
-    public String getUserPhoneNumber() {
-        return userPhoneNumber;
+    public String getShopReceiptMessage() {
+        return shopReceiptMessage;
     }
 
-    public void setUserPhoneNumber(String userPhoneNumber) {
-        this.userPhoneNumber = userPhoneNumber;
+    public void setShopReceiptMessage(String shopReceiptMessage) {
+        this.shopReceiptMessage = shopReceiptMessage;
+    }
+
+    public String getShopPhoneNumber() {
+        return shopPhoneNumber;
+    }
+
+    public void setShopPhoneNumber(String shopPhoneNumber) {
+        this.shopPhoneNumber = shopPhoneNumber;
     }
 }

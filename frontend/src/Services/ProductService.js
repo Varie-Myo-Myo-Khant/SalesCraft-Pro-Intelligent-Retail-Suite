@@ -2,7 +2,7 @@ import httpRequest from "./baseURL";
 import authHeader from './AuthHeader'; 
 import { deleteLocalStorageCart } from '../Services/localStorage'
 import { clearCart } from '../Slice/cartSlice'
-
+import { toast } from 'react-toastify'
     // get all product 
     const getProduct = async (token) => { // Pass the token as a parameter
         // localhost:8080/api/category/
@@ -37,9 +37,12 @@ import { clearCart } from '../Slice/cartSlice'
     }
 
     // update the data
-     const updateProduct=async(product,token)=> {
-        const response = await httpRequest.put(`/product/${product.id}`,product, { headers: authHeader(token) }); 
+     const updateProduct=async(productId,product,token)=> {
+        
+        const response = await httpRequest.put(`/product/${productId}`,product, { headers: authHeader(token) }); 
+        toast.success('Updated the product!')
         return response.data;
+      
     }
 
     //filter product by category

@@ -38,9 +38,10 @@ export const getProducts = createAsyncThunk('product/getProducts', async (_, thu
 })
 
 //to edit products
-export const editProduct = createAsyncThunk('product/editProduct', async (product, thunkAPI) => {
+export const editProduct = createAsyncThunk('product/editProduct', async ({editProductId,product}, thunkAPI) => {
     try {
-       return await productService.updateProduct(product)
+   
+       return await productService.updateProduct(editProductId,product)
     } catch (error) {
          return thunkAPI.rejectWithValue(error.response.data)
     }
@@ -80,7 +81,7 @@ export const updateProductStockQuantity = createAsyncThunk('product/updateProduc
         const updatedProduct = await productService.getProductById(productId);
         console.log("get product",updatedProduct)
         updatedProduct.stockQuantity = newStockQuantity;
-        return await productService.updateProduct(updatedProduct);
+        return await productService.updateProduct(productId,updatedProduct);
     } catch (error) {
         return thunkAPI.rejectWithValue(error.response.data)
     }
@@ -130,9 +131,14 @@ export const productSlice = createSlice({
         .addCase(editProduct.pending, (state) => {
             state.loading = true
         })
-        .addCase(editProduct.fulfilled, (state, action) => {
-            state.loading = false
-            toast.success('Updated the product!')
+        .addCase(editProduct.fulfilled, (state, action) => { 
+            state.loading = false;
+            const updatedProduct = action.payload;
+            // Update the product in the state
+            state.products = state.products.map(product =>
+                product.id === updatedProduct.id ? updatedProduct : product
+            );
+            toast.success('Product stock quantity updated successfully!');
         })
         .addCase(editProduct.rejected, (state, action) => {
             state.loading = false

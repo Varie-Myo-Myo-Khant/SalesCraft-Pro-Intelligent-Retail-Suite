@@ -1,14 +1,18 @@
-import React, { useState, useEffect } from "react"; 
-import { Col, Card, Button } from "react-bootstrap";
+import React, { useState,useRef, useEffect } from "react"; 
+import { Row, Card} from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { clearCart } from "../Slice/cartSlice";
+import { clearCart,productSubTotal,productTotalAmount, productTax} from "../Slice/cartSlice";
 import { orderCreate } from "../Slice/orderSlice";
 import { deleteLocalStorageCart } from "../Services/localStorage";
 import {NewCustomerModal} from './NewCustomerModal';
 import { toast } from 'react-toastify';
 import { getCustomers } from "../Slice/customerSlice";
-import { FaPlusCircle } from "react-icons/fa";
+import { FaPlusCircle,FaAngleRight, FaPrint } from "react-icons/fa";
+import "../Styles/cart.css";
+import { OrderPrint } from "./OrderPrint";
+import { useReactToPrint } from "react-to-print"; // Import useReactToPrint hook
+
 
 export const CheckOutPayment = () => {
   const { cartItems, subTotal, totalAmount, tax } = useSelector((state) => state.cart);
@@ -16,14 +20,22 @@ export const CheckOutPayment = () => {
   const { customers} = useSelector((state) => state.customer);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
+  const componentRef = useRef(); // Ref for OrderPrint component
+
   const [paymentType, setPaymentType] = useState("Cash");
   const [showNewCustomerModal, setShowNewCustomerModal] = useState(false);
-const [customer, setCustomer] = useState("");
-  useEffect(() => {
-    dispatch(getCustomers()); // Fetch customers
-  }, [dispatch]);
+  const [customer, setCustomer] = useState("");
+    useEffect(() => {
+      dispatch(getCustomers()); // Fetch customers
+    }, [dispatch]);
 
+// Get current amount
+  useEffect(() => {
+      dispatch(productSubTotal());
+      dispatch(productTax());
+      dispatch(productTotalAmount());
+    
+  }, [dispatch, cartItems]);
 
   const generateOrderId = () => {
   const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -53,7 +65,7 @@ const [customer, setCustomer] = useState("");
       dispatch(orderCreate(newOrder));
       dispatch(clearCart());
       deleteLocalStorageCart();
-      navigate("/order");
+      navigate("/order"); 
     } else {
       toast.warning("Please fill in the required fields");
     }
@@ -72,39 +84,30 @@ const [customer, setCustomer] = useState("");
   };
 
   return (
-    <>
-      <Col className="checkoutPayment">
-        <h4>Payment</h4>
-        <form onSubmit={handleSubmit}>
-          <div>
-            <div className="customer">
-              <select
-                className="customer-select"
-                onChange={handleCustomerSelect}
-              >
-                <option value="">Select customer...</option>
-                <option value="Walk in Customer">Walk in Customer</option>
-                {customers !== undefined && customers.map((customer) => (
-                    <option value={customer.customer}>{customer.customer}</option>
-                    ))}
-              </select>
-              <Button onClick={handleNewCustomer}> <FaPlusCircle/>Add New Customer</Button>
-            </div>
-            <NewCustomerModal
-              show={showNewCustomerModal}
-              handleClose={() => setShowNewCustomerModal(false)}
-              handleNewCustomerAdded={handleNewCustomerAdded}
-            />
-          </div>
-          <div className="states">
-            <div>
-              <label htmlFor="payment">Payment Method</label>
-              <Card style={{ width: '18rem' }}>
+    
+    <Row className="cartAmount">
+        <form onSubmit={handleSubmit} className="carForm">
+         
+
+          <p className="total-items">
+          <span className="items-count">Sub Total : Items ({cartItems.length})</span>
+          <span className="items-price">$ {subTotal.toFixed(2)}</span>
+          </p>
+          <p className="item-taxs">
+            <span className="item-tax">Tax (8%)</span>
+            <span className="item-tax-price">$ {tax.toFixed(2)}</span>
+          </p>
+            <p className="divider"></p>
+            <p className="total">
+              <span className="total-text">Total </span>
+              <span className="total-item-price">$ {totalAmount.toFixed(2)}</span>
+            </p>
+
+        <p className="paymentRow">
+          Payment Type :
+              <Card >
                 <Card.Body>
-                  <Card.Title>Cash</Card.Title>
-                  <Card.Text>
-                    Select this option if you want to pay with cash.
-                  </Card.Text>
+                 
                   <input
                     type="radio"
                     name="payment"
@@ -116,12 +119,10 @@ const [customer, setCustomer] = useState("");
                   <label htmlFor="cash">Cash</label>
                 </Card.Body>
               </Card>
-              <Card style={{ width: '18rem' }}>
+              <Card>
                 <Card.Body>
-                  <Card.Title>Credit Card</Card.Title>
-                  <Card.Text>
-                    Select this option if you want to pay with a credit card.
-                  </Card.Text>
+                 
+                 
                   <input
                     type="radio"
                     name="payment"
@@ -133,33 +134,44 @@ const [customer, setCustomer] = useState("");
                   <label htmlFor="credit-card">Credit Card</label>
                 </Card.Body>
               </Card>
-            </div>
-          </div>
-          <div className="cart-total-table">
-            <table>
-              <tbody>
-                <tr>
-                  <th>SubTotal:</th>
-                  <td>$ {subTotal.toFixed(2)}</td>
-                </tr>
-                <tr>
-                  <th>Tax: % 8</th>
-                  <td>$ {tax.toFixed(2)}</td>
-                </tr>
-                <tr className="grand-total">
-                  <th>TOTAL:</th>
-                  <td>
-                    <strong>$ {totalAmount.toFixed(2)}</strong>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <div className="secondary-button">
-              <button type="submit">Create Order</button>
-            </div>
-          </div>
+          </p>
+           <p className="firstRow">
+          
+           <select className="customer-select" onChange={handleCustomerSelect} >
+            <option value="" selected>Select Customer</option>
+                <option value="Walk in Customer" >Walk in Customer</option>
+                {customers !== undefined && customers.map((customer) => (
+                  (customer.userId === user.id ) && (
+                    <option value={customer.customer}>{customer.customer} : {customer.loyaltyPoint} Points</option>
+                    ))
+                  )}
+          </select>
+           <a href="#" className="customerdiv" onClick={handleNewCustomer}> <FaPlusCircle/> Add New Customer</a>
+          </p>
+         
+             
+       
+         <NewCustomerModal show={showNewCustomerModal} handleClose={() => setShowNewCustomerModal(false)}
+              handleNewCustomerAdded={handleNewCustomerAdded}
+            />
+
+          <p className="pay">
+          <button type="submit" className="btntype2" disabled={cartItems.length === 0} > 
+            <span>Payment </span>
+          <span><FaAngleRight/></span>
+          </button>
+           <p className="printBtn" disabled={cartItems.length === 0} > 
+            <FaPrint/> <OrderPrint ref={componentRef} order={{ cartItems, subTotal, totalAmount, tax, paymentType, customer, user }}/> 
+          
+          </p>
+        </p>
+
+         
+            
+         
         </form>
-      </Col>
-    </>
+      
+      </Row>
+  
   );
 };

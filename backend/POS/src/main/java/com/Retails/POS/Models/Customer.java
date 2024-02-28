@@ -2,9 +2,11 @@ package com.Retails.POS.Models;
 
 import jakarta.persistence.Id;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
 
+@Document(collection = "customer")
 public class Customer {
     @Id
     private String id;
@@ -16,6 +18,7 @@ public class Customer {
     private Date createdTime;
 
     public Customer() {
+        this.createdTime = new Date();
     }
 
     public Customer(String id, String customer, String phoneNumber, int loyaltyPoint, String userId, Date createdTime) {

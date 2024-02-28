@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "crypto-browserify": "^3.12.0"
+  },
+  "resolve": {
+    "fallback": {
+      "crypto": false
+    }
+  }
+}

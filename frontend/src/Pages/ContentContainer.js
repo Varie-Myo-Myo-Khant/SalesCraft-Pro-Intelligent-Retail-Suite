@@ -31,9 +31,9 @@ export const ContentContainer = () => {
                         </Link>
                     
                      
-                        <Link to="order">
+                        <Link to="session">
                         <FaShoppingCart className="menu-icon" />
-                        Order
+                        Session
                         </Link>
                      
                      

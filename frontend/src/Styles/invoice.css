@@ -1,0 +1,155 @@
+/* INVOICE */
+.main_title {
+  font-weight: 700;
+  font-size: 16px;
+  text-transform: uppercase;
+  color: var(--main-two);
+}
+
+.p_title {
+  font-weight: 700;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.p_title .c_title {
+  color: var(--main-two);
+  font-size: 16px;
+}
+
+.p_title .c_detail {
+  color: var(--dark-grey);
+}
+
+.p_title .o_detail{
+  color: var(--dark-grey);
+  font-size: 14px;
+}
+
+.p_title .o_name{
+  color: var(--dark-grey);
+}
+
+.p_title>span {
+  font-weight: 400;
+  font-size: 12px;
+}
+
+.text_right {
+  text-align: right;
+}
+
+.text_center {
+  text-align: center;
+}
+
+.divline {
+  width: 75px;
+  height: 3px;
+  background: var(--main-two);
+  margin: 5px 0;
+}
+
+.invoice {
+  width: 800px;
+  max-width: 100%;
+  height: 100vh;
+  background:var(--main-white);
+  position: relative;
+  
+  display: flex;
+}
+
+.invoice .invoice_left {
+  width: 275px;
+  background:var(--light-grey);
+  padding: 50px 40px;
+}
+
+.invoice .invoice_right {
+  width: 525px;
+  padding: 50px 40px;
+}
+
+.invoice .invoice_left>div,
+.invoice .invoice_right>div {
+  margin-bottom: 20px;
+}
+
+.invoice .invoice_left .i_logo p,
+.invoice .invoice_right .title {
+  font-size: 32px;
+  line-height: 38px;
+  color: var(--main-two);
+}
+.i_logo{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    column-gap: 5px;
+}
+.shopLogo{
+    height: 50px;
+    width: 50px;
+}
+.invoice .invoice_right .rightTopInvoice{
+    display: flex;
+    flex-direction: row;
+
+}
+.invoice .invoice_right .rightTopInvoice .title{
+    width: 50%;
+}
+
+.invoice .invoice_left .i_logo p {
+  font-family: "Redressed", cursive;
+}
+
+.invoice .w_15 {
+  width: 20%;
+}
+p.order-status {
+    background: transparent;
+    color: inherit;
+    font-weight: 700;
+}
+
+.invoice .w_50 {
+  width: 50%;
+}
+
+.invoice .w_55 {
+  width: 50%;
+}
+
+.invoice .i_table .i_row {
+  display: flex;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+.invoice .i_table .i_row p {
+  margin: 0;
+  font-family: var(--font-family2);
+  font-weight: 700;
+}
+
+.invoice .i_table .w_50 p {
+  margin-bottom: 10px;
+}
+
+.invoice .i_table .i_row {
+  border-bottom: 1px solid var(--dark-grey);
+}
+
+.invoice .i_table .i_table_head .i_row {
+  background: var(--light-grey);
+  border-bottom: 1px solid var(--dark-grey);
+  border-top: 1px solid var(--dark-grey);
+  color: var(--main-two);
+}
+
+.invoice .invoice_right .terms {
+  margin: 0;
+}
+

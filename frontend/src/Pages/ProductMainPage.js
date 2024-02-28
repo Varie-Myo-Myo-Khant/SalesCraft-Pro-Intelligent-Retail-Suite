@@ -3,7 +3,6 @@ import React, { useState,useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux"; 
 import { FaEdit, FaPlusCircle, FaSearch, FaTimes, FaTrashAlt } from "react-icons/fa";
 import { Container,  Row, Col } from 'react-bootstrap';
-import { getCategories } from "../Slice/categorySlice";
 import { getProducts,searchByProductName,removeProduct,setEditProduct} from "../Slice/productSlice";
 import { useNavigate } from "react-router-dom"; 
 import "../Styles/product_category.css";
@@ -17,12 +16,7 @@ export const ProductMainPage = () => {
   const { products,loading,filterProduct} = useSelector((state) => state.product);  
    //for search query
   const [searchQuery, setSearchQuery] = useState(""); 
-
-
-  // Get categories for category section
-      useEffect(() => {
-          dispatch(getCategories());
-      }, [dispatch]);
+  const { user } = useSelector((store) => store.auth);
 
   // First Get All products
   useEffect(() => {
@@ -56,6 +50,7 @@ export const ProductMainPage = () => {
         productName, productImage,productPrice,stockQuantity,category, userId,editProductId:product.id,
       })
     )
+    
     navigate("/addproduct")
   }
 
@@ -63,9 +58,6 @@ const removequery=()=>{
   setSearchQuery("");
   setCurrentProduct(products)
 }
-   
-  
-
 
   return (
    
@@ -96,6 +88,7 @@ const removequery=()=>{
         {loading&&<Loading loading={loading}/>}
             
         {currentproduct !== undefined && currentproduct.map((product) => (
+           (product.userId === user.id ) && (
               <Col key={product.id} className="productCard"> 
                 <Row className="productfirst">
                   <Col md="auto" className="pleft">
@@ -128,7 +121,8 @@ const removequery=()=>{
                 
                 
               </Col>
-            ))}  
+            ))
+          )}  
         </Row>
       
       </Container>

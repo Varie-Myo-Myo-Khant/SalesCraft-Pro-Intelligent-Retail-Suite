@@ -3,9 +3,16 @@
     padding: 10px 0px; 
     border-bottom: 1px solid var(--main-two); 
 }
-
-.cartHeader h3,.cartItemContainer h3{
-  font-size: 16px !important;
+h3.cartTitle { 
+  font-size: 18px !important;
+  color: var(--main-two);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0px 20px;
+}
+.cartItemContainer h3{
+  font-size: 18px !important;
   color: var(--main-two);
 }
 .cartItemContainer p{
@@ -71,7 +78,13 @@ span.amount {
     object-fit: contain;
      border: 1px solid rgba(0,0,0,.22);
 }
-
+.customer-select {
+    padding: 10px;
+    color: var(--main-two);
+    font-weight: 700;
+    border: 1px solid var(--main-two);
+    border-radius: 10px;
+}
 .cartAmount {
   margin-top: 10px;
   padding: 10px;
@@ -88,8 +101,9 @@ p.total-items,p.item-taxs,p.total {
 p.pay {
     display: flex;
     justify-content: center;
-    margin-top: 10px;
      padding: 0px;
+     flex-direction: row;
+     column-gap: 10px;
 }
 .cartAmount span{
   font-size: 16px;
@@ -120,3 +134,59 @@ button.btntype2:hover {
 }
 
 /* for checkout */
+
+a.customerdiv {
+    display: flex;
+    flex-direction: row;
+    column-gap: 10px;
+    align-items: center;
+    color: var(--main-two);
+    cursor: pointer;
+}
+a.customerdiv:hover{
+  color: var(--main-black);
+}
+p.firstRow {
+    display: flex;
+    justify-content: space-between;
+}
+p.divider {
+    border: 1px solid var(--main-two);
+}
+p.paymentRow {
+    display: flex;
+    justify-content: flex-start;
+    column-gap: 15px;
+    align-items: center;
+    color: var(--main-two);
+    font-weight: 700;
+    font-size: 16px;
+    padding: 10px 0px;
+}
+
+form.carForm {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    padding: 0px;
+}
+
+.card-body {
+    color: var(--main-two);
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    column-gap: 5px;
+}
+p.printBtn {
+    display: flex;
+    flex-direction: row; 
+    column-gap: 10px;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px;
+    width: 100%;
+    background: var(--main-two);
+    color: var(--main-white) !important;
+    cursor: pointer;
+}
