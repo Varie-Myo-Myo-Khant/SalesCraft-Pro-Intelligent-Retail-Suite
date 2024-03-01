@@ -5,6 +5,7 @@ import { toast } from 'react-toastify'
 import { useSelector, useDispatch} from 'react-redux'
 import { register, reset } from '../Slice/authSlice'
 import '../Styles/login_register.css';
+import logo from "../Images/homelogo.svg"
 
 export const Register = () => {
 
@@ -46,21 +47,19 @@ export const Register = () => {
   }
 
   return (
-      <section className='home'>
+      <section className='registerformPage'>
      
           <Container>
-            <Row className='homeRow'>
-              <Col className='homeTitle'>
-                  <h4>Intelligent Retail Suite</h4>
-            <h1>SalesCraft Pro</h1> 
-            <p>Streamline your point-of-sale tasks with our user-friendly interface and access comprehensive retail management features. Unlock high-level sales reports and real-time sales data for informed decision-making, driving your business forward.</p>
-              </Col>
-              <Col className='homeLoginForm'>
+             <Row className='logoSection formRow'>
+                <Link to="/"> <img src={logo} alt='brandlogo'className='mylogo'/></Link>
+             </Row>
+            <Row className='mainFormSection'>
+              <Col className='homeLoginForm' xs={12} md={{ span: 6, offset: 5 }}>
                 <div className='formbgn'>
                 <h3>Register</h3>
 
                 <Form className="register-form" onSubmit={handleSubmit}>
-                  <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Group className="registerInput" controlId="formBasicEmail">
                      <Form.Label>Username</Form.Label> 
                       <Form.Control  className='myinput'
                       type="text" 
@@ -70,7 +69,7 @@ export const Register = () => {
                       onChange={onChange} />  
                      </Form.Group>
               
-                  <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Group  className="registerInput" controlId="formBasicEmail">
                     <Form.Label>Email</Form.Label>
                     <Form.Control className='myinput'
                     type="email" 
@@ -81,7 +80,7 @@ export const Register = () => {
                   </Form.Group>   
                         
                         
-                     <Form.Group className="mb-3" controlId="formBasicPassword">
+                     <Form.Group className="registerInput" controlId="formBasicPassword">
                         <Form.Label>Password</Form.Label>  
                         <Form.Control  className='myinput'
                         type="password" 
@@ -91,14 +90,14 @@ export const Register = () => {
                         onChange={onChange} />  
                       </Form.Group>
 
-                    <Button variant="primary" type="submit">Register</Button>
+                    <Button variant="primary" className="loginBtn" type="submit">Register</Button>
                     
                 
                 </Form>
                     
                 </div>
                 <div className='newUserBgn'>
-                      Already have an account? <span className='subText'><Link to="/">Log in here!</Link></span>
+                      Already have an account? <span className='subText'><Link to="/login">Log in here!</Link></span>
                   </div>
                 </Col>
                 

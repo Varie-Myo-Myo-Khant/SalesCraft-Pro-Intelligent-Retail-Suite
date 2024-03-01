@@ -45,7 +45,7 @@ export const ShoppingCart = () => {
               ) : (
                 <img
                   className="default-image"
-                  src={require("../Images/LoginBgn.png")}
+                  src={require("../Images/products.png")}
                   alt="..."
                 />
               )}

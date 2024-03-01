@@ -54,6 +54,10 @@
     border-radius: 10px;
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
+.uppderBar.row {
+    align-items: center;
+}
+
 
 /* for category card*/
 .mainLayout{
@@ -80,6 +84,10 @@
     width: 130px;
     border: 1px solid rgba(0,0,0,.22); 
     box-shadow: 0 2px 6px rgba(0,0,0,.25);
+    transform: translate(0);
+}
+.categoryCard:hover{
+    transform: scale(.95);
 }
 .categoryimg{
     height: 50px;
@@ -111,6 +119,8 @@
     display: grid!important;
     gap: 20px;
     grid-template-columns: repeat(auto-fill,minmax(220px,1fr));
+    max-height: 68vh;
+    overflow: auto;
 }
 .productCard {
     background-color: var(--main-white);
@@ -124,6 +134,10 @@
     box-shadow: 0 2px 6px rgba(0,0,0,.25);
     flex-wrap: wrap; 
     align-content: flex-start;
+    transform: translate(0);
+}
+.productCard:hover{
+    transform: scale(.95);
 }
 .productfirst{
     align-items: center;

@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { logout, reset } from "../Slice/authSlice";
 import Navbar from 'react-bootstrap/Navbar';
 import '../Styles/navigation.css'
-import brandlogred from '../Images/brandlogo_two.png';
+import brandlogred from '../Images/brandlogo2.svg';
 import {FaUserCircle,FaSignOutAlt} from "react-icons/fa";
 import { useNavigate} from "react-router-dom";
 

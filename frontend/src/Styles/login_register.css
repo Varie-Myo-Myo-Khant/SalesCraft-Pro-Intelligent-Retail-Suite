@@ -1,34 +1,113 @@
+/* for home page */
+/* for video */ 
+.videoHolder {
+  position: relative;
+  overflow: hidden;
+  max-height: 100vh;
+  aspect-ratio: 680 / 509; /* added aspect ratio */ 
+} 
+.VideoComponent {
+  position: absolute;
+  top: 0;
+  left: 0; 
+}
+
+.VideoComponent video { 
+  width: 100%;
+  object-position: center center;
+  object-fit: cover;
+}
+
 .home{
-    background-image: url("../Images/10.svg");
-    min-height: 100vh;  
-    background-attachment: fixed;
-    background-size: cover;
+    background-color: #000;
+    max-height: 100vh;  
+    padding-left: 80px;
 }
 
 .homeRow{
     align-items: center;
-    min-height: 100vh;
+}
+.titleSection.row {
+    row-gap: 20px;
 }
 
 .home .homeRow .homeTitle h1{ 
 
-  color: var(--main-white); 
+  color: var(--main-two); 
   font-size: 70px !important;
 }
 
+.homeTitle{
+    padding: 0px;
+    display: flex;
+    flex-direction: column; 
+    row-gap: 30px;
+}
+
 .homeTitle h4{
-    font-size: 20px !important;
+    font-size: 28px !important;
  color: var(--main-white); 
 }
 .homeTitle p{
      font-size: 18px !important;
+    color: var(--dark-grey);
+}
+
+img.mylogo {
+    width: 200px; 
+}
+.Btn.row {
+    column-gap: 15px;
+    padding-left: 10px;
+}
+
+.homeBtn1, .homeBtn2:hover {
+    text-align: center;
+    padding: 10px;
+    width: 120px;
+    border-radius: 10px;
+    background: transparent;
+    border: 1px solid var(--main-two);
     color: var(--main-white);
+}
+
+.homeBtn2,.homeBtn1:hover {
+    text-align: center;
+    border-radius: 10px;
+    padding: 10px;
+    width: 120px;
+    width: 120px;
+    color: var(--main-white);
+    background: var(--main-two);
+}
+
+
+/* for login and register page */
+.logoSection.formRow.row {
+    padding-top: 30px;
+}
+.logoSection.formRow a{
+    display: inline;
+}
+
+.loginformPage{
+    background-image: url('../Images/loginBgn.gif');
+  background-repeat: no-repeat;
+  background-size: cover;
+    min-height: 100vh;  
+}
+
+.registerformPage{
+    background-image: url('../Images/registerBgn.gif');
+  background-repeat: no-repeat;
+  background-size: cover;
+    min-height: 100vh;  
 }
 
 .formbgn{
     padding: 30px;
-    background-color:var(--white-grey);
-    border-radius: 10px;
+    background-color:#ffffff30;   
+    border: 1px solid var(--main-two);
     width: 400px;
 }
 
@@ -54,7 +133,10 @@ button.btn.btn-primary {
     border: 1px solid var(--main-two);
     margin-top: 20px !important;
 }
-
+.loginBtn{
+    padding: 10px 20px;
+    font-size: 18px;
+}
 
 button.btn.btn-primary:hover {
     background-color: transparent;
@@ -64,29 +146,32 @@ button.btn.btn-primary:hover {
 }
 
 
-.homeLoginForm{
-    margin-left: 12%; 
-}
+
 .form-label{
-  color:var(--main-black) !important;
+  color:var(--main-white) !important;
+  font-weight: 700;
 }
 .newUserBgn{
     text-align: center;
-    background-color:var(--main-two);
-    border-radius: 10px;
+    background-color: #7662ee59; 
     margin-top: 30px;
-    color:var(--main-white);
+    color: var(--main-white);
     padding: 30px;
-    width: 400px; 
+    width: 400px;
+    font-size: 18px;
 }
 
-
 .subText a{
-    color: var(--main-black) !important;
+    color: lightblue!important;
     text-decoration: underline !important;
     display: inline;
+    font-weight: 700;
 }
 
 .subText a:hover{
     color: var(--main-white) !important; 
+}
+
+.registerInput{
+    margin-bottom: 10px;
 }

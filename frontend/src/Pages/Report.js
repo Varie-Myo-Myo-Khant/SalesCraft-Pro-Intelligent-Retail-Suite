@@ -4,6 +4,8 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { FaArrowRight, FaChartLine, FaListAlt, FaProductHunt, FaShoppingCart } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import "../Styles/report.css"; 
+import { PromotionDataPage } from "./PromotionDataPage";
+
 
 export const Report = () => {
   const user = useSelector((state) => state.auth.user); // Assuming you have user information in your auth state
@@ -52,12 +54,16 @@ export const Report = () => {
         <Col>
           Top Selling Report
         </Col>
+       
+       
+        
       </Row>
       
       <Row>
-        <Col>
-          Promotion Report
-        </Col>
+        <h2>
+          Market Basket Analysis
+        </h2>
+         <PromotionDataPage/>
       </Row>
     </Container>
   );

@@ -7,7 +7,7 @@ import orderReducer from './orderSlice'
 import customerReducer from './customerSlice';
 import sessionReducer from './sessionSlice';
 import profileReducer from './profileSlice';
-
+import analysisReducer from './analysisSlice'
 export const store = configureStore({
   reducer: {
     auth:authReducer,
@@ -18,6 +18,7 @@ export const store = configureStore({
     customer:customerReducer,
     session:sessionReducer,
     profile:profileReducer,
+    analysis:analysisReducer,
   },
 });
 

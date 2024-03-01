@@ -17,6 +17,7 @@ import { Notfound } from './Pages/Notfound';
 import { History } from './Pages/History';
 import {Session} from './Pages/Session';
 import { Profile } from './Pages/Profile';
+import { Home } from './Pages/Home';
 
 function App() {
   return (
@@ -25,7 +26,8 @@ function App() {
       <div>
         <Router>
         <Routes>
-          <Route path='/' element={<Login />} name="login" /> 
+          <Route path='/' element={<Home />} name="home" /> 
+          <Route path='/login' element={<Login />} name="login" /> 
             <Route path='/register' element={<Register />} name="register" />
             
             <Route path='/' element={
