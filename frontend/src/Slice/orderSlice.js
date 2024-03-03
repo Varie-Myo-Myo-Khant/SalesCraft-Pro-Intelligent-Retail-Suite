@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 import OrderService from "../Services/OrderService"
 import { toast } from 'react-toastify'
-import { updateProductStockQuantity } from "./productSlice";
+import { editProduct } from "./productSlice";
 
 const initialState = {
     orders: [],
@@ -13,11 +13,13 @@ export const orderCreate = createAsyncThunk('order/orderCreate', async (order, t
     try {
        const createdOrder = await OrderService.createOrder(order);
        // Iterate through the cart items and update the stock quantity for each product
-       console.log("Cartitem",order.cartItems)
+
        order.cartItems.forEach(cartItem => {
             console.log("Cartitem",cartItem.id,cartItem.stockQuantity,cartItem.quantity)
-           thunkAPI.dispatch(updateProductStockQuantity({ productId: cartItem.id, newStockQuantity: cartItem.stockQuantity - cartItem.quantity }));
+            console.log({productId:cartItem.id,product: {stockQuantity: cartItem.stockQuantity - cartItem.quantity }})
+           thunkAPI.dispatch(editProduct({editProductId:cartItem.id,product:{stockQuantity: cartItem.stockQuantity - cartItem.quantity }}));
        });
+
        return createdOrder;
     } catch (error) {
          return thunkAPI.rejectWithValue(error.response.data)

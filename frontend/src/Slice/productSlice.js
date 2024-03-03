@@ -75,17 +75,6 @@ export const removeProduct = createAsyncThunk('product/removeProduct', async (pr
     }
 })
 
-// to update product stock quantity
-export const updateProductStockQuantity = createAsyncThunk('product/updateProductStockQuantity', async ({ productId, newStockQuantity }, thunkAPI) => {
-    try {
-        const updatedProduct = await productService.getProductById(productId);
-        console.log("get product",updatedProduct)
-        updatedProduct.stockQuantity = newStockQuantity;
-        return await productService.updateProduct(productId,updatedProduct);
-    } catch (error) {
-        return thunkAPI.rejectWithValue(error.response.data)
-    }
-})
 
 export const productSlice = createSlice({
     name: 'product',
@@ -133,11 +122,11 @@ export const productSlice = createSlice({
         })
         .addCase(editProduct.fulfilled, (state, action) => { 
             state.loading = false;
-            const updatedProduct = action.payload;
-            // Update the product in the state
-            state.products = state.products.map(product =>
-                product.id === updatedProduct.id ? updatedProduct : product
-            );
+            // const updatedProduct = action.payload;
+            // // Update the product in the state
+            // state.products = state.products.map(product =>
+            //     product.id === updatedProduct.id ? updatedProduct : product
+            // );
             toast.success('Product stock quantity updated successfully!');
         })
         .addCase(editProduct.rejected, (state, action) => {
@@ -183,24 +172,24 @@ export const productSlice = createSlice({
             state.error = true
             toast.error('Fail! Please try again later!')
         }) 
-        .addCase(updateProductStockQuantity.pending, (state) => {
-            state.loading = true
-        })
-        .addCase(updateProductStockQuantity.fulfilled, (state, action) => {
-            state.loading = false;
-            const updatedProduct = action.payload;
-            // Update the product in the state
-            state.products = state.products.map(product =>
-                product.id === updatedProduct.id ? updatedProduct : product
-            );
-            toast.success('Product stock quantity updated successfully!');
+        // .addCase(updateProductStockQuantity.pending, (state) => {
+        //     state.loading = true
+        // })
+        // .addCase(updateProductStockQuantity.fulfilled, (state, action) => {
+        //     state.loading = false;
+        //     const updatedProduct = action.payload;
+        //     // Update the product in the state
+        //     state.products = state.products.map(product =>
+        //         product.id === updatedProduct.id ? updatedProduct : product
+        //     );
+        //     toast.success('Product stock quantity updated successfully!');
             
-        })
-        .addCase(updateProductStockQuantity.rejected, (state, action) => {
-            state.loading = false;
-            state.error = true;
-            toast.error('Failed to update product stock quantity. Please try again later.');
-        }) 
+        // })
+        // .addCase(updateProductStockQuantity.rejected, (state, action) => {
+        //     state.loading = false;
+        //     state.error = true;
+        //     toast.error('Failed to update product stock quantity. Please try again later.');
+        // }) 
     }
 })
 

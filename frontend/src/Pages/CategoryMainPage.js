@@ -69,7 +69,7 @@ export const CategoryMainPage = () => {
 
       <Container className="mainLayout">
         <Row className="uppderBar">
-            
+             <h3 style={{ borderBottom: '0px' }}>Categories - {categories.length} Items</h3>
           <Col className="Search">
               <div className="search-wrapper">
                 <FaSearch className="search-icon" />

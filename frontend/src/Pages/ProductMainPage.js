@@ -62,7 +62,9 @@ const removequery=()=>{
   return (
    
       <Container className="mainLayout">
+        
         <Row className="uppderBar">
+           <h3 style={{ borderBottom: '0px' }}>Products - {products.length} Items</h3>
           <Col className="Search">
             <div className="search-wrapper">
               <FaSearch className="search-icon" />

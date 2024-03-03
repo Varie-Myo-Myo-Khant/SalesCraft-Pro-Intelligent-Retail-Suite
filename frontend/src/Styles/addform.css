@@ -4,14 +4,14 @@
     font-weight: 600 !important;
     
 }
-.formcontainer h3{
+.formcontainer h3,h3{
     color: var(--main-two) !important;
-    margin-bottom: 15px;
-    padding-bottom: 15px;
+    margin-bottom: 15px !important;
+    padding-bottom: 15px !important;
     border-bottom: 1px solid;
 }
 .formcontainer{ 
-    margin: 30px 0px 50px 0px;
+    margin: 30px 0px 0px 0px;
     column-gap: 30px;
     display: flex;
     flex-direction: column;

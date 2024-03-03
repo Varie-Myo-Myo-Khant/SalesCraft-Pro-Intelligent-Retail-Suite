@@ -58,7 +58,7 @@ public class ProductsController {
 
     //update product by id
     @PutMapping(value = "/product/{id}")
-    public ResponseEntity<Products> updateProduct(@RequestBody Products products, @PathVariable String id){
+    public ResponseEntity<Products> updateProduct( @PathVariable String id,@RequestBody Products products){
         Products updatedProducts = productsServices.updateProducts(id, products);
         if (updatedProducts == null) {
             return ResponseEntity.notFound().build();

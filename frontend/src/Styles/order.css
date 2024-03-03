@@ -1,5 +1,5 @@
 .ordermainLayout{
-        margin: 0px 0px 50px 0px;
+        margin: 0px;
         padding: 0px 0px 0px 10px;
     
 }
@@ -12,7 +12,7 @@
 .cartproductContainer{
   display: flex;
     flex-direction: column;
-    row-gap: 30px;
+    row-gap: 20px;
 }
   
 

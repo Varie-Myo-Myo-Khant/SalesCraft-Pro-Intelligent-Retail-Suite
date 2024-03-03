@@ -64,6 +64,7 @@ export const authSlice = createSlice({
             state.error = true
             state.message = action.payload
             state.user = null
+            toast.error('Please Try Again!')
         })
         .addCase(login.pending, (state) => {
             state.loading = true
@@ -72,13 +73,14 @@ export const authSlice = createSlice({
             state.loading = false
             state.user = action.payload
             addLocalStorageUser(action.payload)
-            toast.success('User Success Login')
+            toast.success('User Successfully Login')
         })
         .addCase(login.rejected, (state, action) => {
             state.loading = false
             state.error = true
             state.message = action.payload
             state.user = null
+             toast.error('Incorrect Username or Password. Please Try Again!')
         })
         .addCase(logout.fulfilled, (state) => {
             state.user = null

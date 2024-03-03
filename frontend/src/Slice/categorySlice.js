@@ -103,7 +103,7 @@ export const categorySlice = createSlice({
                 state.loading = true;
             })
             .addCase(editCategory.fulfilled, (state, action) => {
-                state.loading = false;
+                state.loading  = false;
                 toast.success('Updated the Category!')
             })
             .addCase(editCategory.rejected, (state, action) => {

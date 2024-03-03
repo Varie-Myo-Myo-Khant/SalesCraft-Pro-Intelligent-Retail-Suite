@@ -1,0 +1,49 @@
+.orderDiv{
+    max-height: 70vh;
+    overflow: auto;
+}
+
+.invocieTable tr,th,td{
+    border: 0px;
+    border-bottom: 1px solid rgba(0,0,0,.22);
+}
+
+.invocieTable th{
+    color: var(--main-two);
+}
+
+.invocieTable .lastRow{
+    background-color: var(--light-grey) !important;
+}
+.invocieTable .lastRow td{
+    background-color: transparent;
+}
+
+.accordion-button div{
+    color: var(--main-two); 
+    font-weight: 700;
+}
+
+
+.accordion-item {
+    color: var(--bs-accordion-color);
+    background-color: var(--bs-accordion-bg);
+    border: 0px;
+    border-bottom: 1px solid var(--main-black);
+}
+
+.accordion-item:last-of-type .accordion-button.collapsed {
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+.order_delete{
+    color: var(--main-two);
+    padding: 0px 30px;
+}
+
+.printBtn.col-md-auto {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    column-gap: 5px;
+}

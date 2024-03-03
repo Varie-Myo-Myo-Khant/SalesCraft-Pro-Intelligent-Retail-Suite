@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchPromotionData } from '../Slice/analysisSlice';
 import { Col, Row, Table } from 'react-bootstrap';
 import { getProducts } from "../Slice/productSlice";
-
+import "../Styles/report.css"; 
 export const PromotionDataPage = () => {
 
     const dispatch = useDispatch();
@@ -73,23 +73,24 @@ export const PromotionDataPage = () => {
 
 
   return (
-    <>
+    <div className='promotionDiv'>          
+
                 {topPairs.map((pair, index) => (
-                <Row key={index}>
-                   
+                <div className='proRow' key={index}>
+                   <b> {index+1}</b>
                         {/* Assuming getProductImageById and getProductNameById functions are defined */}
                         {pair.id.map((productId, idx) => (
-                            <Col md="auto" key={idx}>
-                               
+                            <p className="proCol" md="auto" key={idx}> 
+                             {/* <b>{getProductNameById(productId)}</b> */}
                                 <img className="addsmallimage" src={getProductImageById(productId)} alt={getProductNameById(productId)} />
-                                <h4>{getProductNameById(productId)}</h4>
-                            </Col>
+                               
+                            </p>
                         ))}
                     
-                </Row>
+                </div>
             ))}
            
       
-    </>
+    </div>
 );
 };

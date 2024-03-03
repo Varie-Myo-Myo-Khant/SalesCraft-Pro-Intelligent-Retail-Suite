@@ -38,7 +38,7 @@ public class ProductsServices {
             if (products.getProductPrice() != 0) {
                 existingProducts.setProductPrice(products.getProductPrice());
             }
-            if (products.getStockQuantity() != 0) {
+            if (products.getStockQuantity() != -1) {
                 existingProducts.setStockQuantity(products.getStockQuantity());
             }
 

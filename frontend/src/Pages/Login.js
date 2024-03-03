@@ -1,33 +1,31 @@
-import {Container,Form,Button,Row,Col} from 'react-bootstrap';
+import { Container, Form, Button, Row, Col } from 'react-bootstrap';
 import React, { useState, useEffect } from "react";
 import '../Styles/login_register.css';
 import { toast } from "react-toastify";
-import { useNavigate,Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { login, reset } from "../Slice/authSlice";
 import logo from "../Images/homelogo.svg"
 
-export const Login=()=>{
-
+export const Login = () => {
   const [form, setForm] = useState({
     username: "",
     password: "",
   });
-  console.log(form);
 
   const { username, password } = form;
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { user, error, success, message } = useSelector((state) => state.auth);
+  const { error, success, user, message } = useSelector((state) => state.auth);
 
   useEffect(() => {
     if (error) {
       toast.error(message);
     }
     if (success || user) {
-      navigate("/dashboard");
+      navigate("/dashboard", { replace: true });
     }
     dispatch(reset());
   }, [error, success, user, message, navigate, dispatch]);
@@ -45,55 +43,56 @@ export const Login=()=>{
     };
    
     dispatch(login(userData));
-    navigate('/dashboard')
   };
  
-   return (
+  return (
     <section className='loginformPage'>
-     
-   
-    <Container>
+      <Container>
         <Row className='logoSection formRow'>
-            <Link to="/"> <img src={logo} alt='brandlogo'className='mylogo'/></Link>
+          <Link to="/">
+            <img src={logo} alt='brandlogo'className='mylogo'/>
+          </Link>
         </Row>
         <Row className='mainFormSection'>
-        <Col className='homeLoginForm' xs={12} md={{ span: 6, offset: 5 }}>
+          <Col className='homeLoginForm' xs={12} md={{ span: 6, offset: 5 }}>
             <div className='formbgn'>
-            <h3>Login</h3>
+              <h3>Login</h3>
               <Form className="register-form" onSubmit={handleSubmit}>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Label>Username</Form.Label>
-                    <Form.Control className='myinput'
-                    type="text" 
+                  <Form.Label>Username</Form.Label>
+                  <Form.Control
+                    className='myinput'
+                    type="text"
                     name='username'
                     value={username}
                     onChange={onChange}
-                    placeholder="Enter Username" />
+                    placeholder="Enter Username"
+                  />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicPassword">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control 
-                    type="password" 
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control
+                    type="password"
                     placeholder="Password"
                     name="password"
                     className='myinput'
                     value={password}
-                    onChange={onChange} />
+                    onChange={onChange}
+                  />
                 </Form.Group>
                 
                 <Button variant="primary" className="loginBtn" type="submit">
-                    Login
+                  Login
                 </Button>
-                </Form>
+              </Form>
             </div>
             <div className='newUserBgn'>
-                New User? <span className='subText'><Link to="/register">Register Here!</Link></span>
+              New User? <span className='subText'><Link to="/register">Register Here!</Link></span>
             </div>
-
-         </Col>
-     </Row>
-  </Container>
+          </Col>
+        </Row>
+      </Container>
     </section>
-    );
+  );
 }

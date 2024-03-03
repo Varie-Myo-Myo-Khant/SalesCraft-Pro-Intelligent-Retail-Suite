@@ -27,7 +27,7 @@ export const Register = () => {
       toast.error(message)
     }
     if (success || user) {
-      navigate('/')
+      navigate('/login')
     }
     dispatch(reset())
   }, [error, success, user, message, navigate, dispatch])
@@ -43,7 +43,7 @@ export const Register = () => {
       username, email, password
     }
     dispatch(register(userData))
-    navigate('/')
+    navigate('/login')
   }
 
   return (

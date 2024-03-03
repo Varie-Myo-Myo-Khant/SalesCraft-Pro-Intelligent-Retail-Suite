@@ -71,6 +71,15 @@ export const CartProducts = () => {
   const { sessionId } = useSelector((state) => state.session);
   const [closingCash, setClosingCash] = useState(0);
 
+  //for cateogry data
+  function capitalizeAndReplace(str) {
+    return str
+        .split('-') // Split the string by hyphen
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize each word
+        .join(' '); // Join the words with space
+}
+
+
   const handleCloseSessionSubmit = (e) => {
     e.preventDefault();
     dispatch(updateSession({sessionId ,session: {closingCash: parseFloat(closingCash)} }))
@@ -122,7 +131,7 @@ export const CartProducts = () => {
         <Modal.Body>
           <Form onSubmit={handleCloseSessionSubmit}>
             <Form.Group controlId="closingCash">
-              <Form.Label>Enter Closing Cash</Form.Label>
+              <Form.Label className='modalLabel'>Enter Closing Cash</Form.Label>
               <Form.Control type="number" name='closingCash' value={closingCash} onChange={modalInputChange} required />
             </Form.Group>
             <Button variant="primary" type="submit">Close Session</Button>
@@ -149,25 +158,25 @@ export const CartProducts = () => {
                 className:"BtnProps",children: <span><FaAngleDoubleLeft/></span>,
                 }}
                 responsiveProps={[
-                  {minWidth: 1000, itemsToShow: 8}, 
-                  {minWidth: 768, maxWidth: 1000, itemsToShow: 7}, 
-                  {maxWidth: 767, itemsToShow: 5}
+                  {minWidth: 1000, itemsToShow: 6}, 
+                  {minWidth: 768, maxWidth: 1000, itemsToShow: 4}, 
+                  {maxWidth: 767, itemsToShow: 3}
                 ]}
                 speed={400}
                 easing="linear"
               >
           
               {categories !== undefined && categories.some(category => category.userId === user.id) && (
-                <button className="smallcategory" type="button" onClick={() => setCurrentProduct(products)}>  
+                <a className="smallcategory" type="button" onClick={() => setCurrentProduct(products)}>  
                   All
-                </button>
+                </a>
               )}
               
               {categories !== undefined && categories.map((category) => (
                 (category.userId === user.id ) && (
-                  <button className="smallcategory" type="button" key={category.id} onClick={()=>filtering(category.category)}>  
-                     {category.category} 
-                </button>)
+                  <a className="smallcategory" type="button" key={category.id} onClick={()=>filtering(category.category)}>  
+                     {capitalizeAndReplace(category.category)}  
+                </a>)
                 ))} 
             </ReactSimplyCarousel>
         </Row>

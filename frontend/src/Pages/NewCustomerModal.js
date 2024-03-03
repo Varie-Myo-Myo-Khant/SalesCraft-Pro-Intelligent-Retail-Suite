@@ -41,7 +41,7 @@ export const NewCustomerModal = ({ show, handleClose, handleNewCustomerAdded }) 
       <Modal.Body>
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="newCustomerName">
-            <Form.Label>Customer Name</Form.Label>
+            <Form.Label className='modalLabel'>Customer Name</Form.Label>
             <Form.Control
               type="text"
               placeholder="Enter customer name"
@@ -51,7 +51,7 @@ export const NewCustomerModal = ({ show, handleClose, handleNewCustomerAdded }) 
             />
           </Form.Group>
           <Form.Group controlId="newCustomerPhoneNumber">
-            <Form.Label>Phone Number</Form.Label>
+            <Form.Label className='modalLabel'>Phone Number</Form.Label>
             <Form.Control
               type="text"
               placeholder="Enter phone number"

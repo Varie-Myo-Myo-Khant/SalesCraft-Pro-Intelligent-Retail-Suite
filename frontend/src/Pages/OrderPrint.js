@@ -43,7 +43,10 @@ export const OrderPrint = ({ order }) => {
           <div className="invoice">
             <div className="invoice_left">
               <div className="i_logo">
-                <img src={profile.shopLogo} className="shopLogo"/>
+                <img src={profile.shopLogo} className="shopLogo"/>  
+              </div>
+              <div className="i_logo">
+                
                 <p>{profile.shopName}</p>
               </div>
               <div className="i_to">

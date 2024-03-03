@@ -1,15 +1,27 @@
 import Container from 'react-bootstrap/Container';
-import React, { useState, useEffect } from 'react';
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect } from 'react'; 
 import { logout, reset } from "../Slice/authSlice";
 import Navbar from 'react-bootstrap/Navbar';
 import '../Styles/navigation.css'
 import brandlogred from '../Images/brandlogo2.svg';
 import {FaUserCircle,FaSignOutAlt} from "react-icons/fa";
+import { getProfile } from '../Slice/profileSlice'
+import { useSelector, useDispatch } from 'react-redux'; 
 import { useNavigate} from "react-router-dom";
 
 
 export const Header=() =>{
+
+  const { user } = useSelector((store) => store.auth);
+  const { profile } = useSelector((store) => store.profile);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate(); 
+
+    useEffect(() => {
+    dispatch(getProfile(user.id));
+  }, [dispatch, user.id]);
+
 
   const [currentTime, setCurrentTime] = useState('');
   const [currentDate, setCurrentDate] = useState('');
@@ -40,8 +52,7 @@ export const Header=() =>{
     setCurrentDate(formattedDate);
   };
 
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+  
     const logoutUser = () => {
     dispatch(logout());
     dispatch(reset());
@@ -57,12 +68,17 @@ export const Header=() =>{
         <Navbar.Collapse className="justify-content-end">
           <Navbar.Text>
              <div className='currentTime'>
-              {currentTime}   {currentDate}
+             {currentDate} {currentTime}   
              </div>
           </Navbar.Text>
           <Navbar.Text>
              <a href="profile">
-              <FaUserCircle className="menu-icon" />      
+              {profile.userImage !== null && profile.username ? (
+                <img src={profile.userImage} className="userImg" alt={profile.username} />
+              ) : (
+                <FaUserCircle className="menu-icon" />   
+              )}
+                              
              </a>
           </Navbar.Text>
            <Navbar.Text >

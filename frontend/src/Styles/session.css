@@ -20,3 +20,26 @@
 .sessionBtn{
     border-radius: 10px;
 }
+
+.modalLabel{
+    color: var(--main-black) !important;
+}
+
+.sessionDiv{
+    height: 250px;
+    overflow: auto;
+    padding: 0px;
+}
+
+.sessionDiv th{
+    color: var(--main-two);
+}
+
+.sessionDiv tr,th{
+    border: 0px;
+    border-bottom: 1px solid rgba(0,0,0,.22);
+    
+}
+
+
+

@@ -11,7 +11,6 @@ import { getCustomers } from "../Slice/customerSlice";
 import { FaPlusCircle,FaAngleRight, FaPrint } from "react-icons/fa";
 import "../Styles/cart.css";
 import { OrderPrint } from "./OrderPrint";
-import { useReactToPrint } from "react-to-print"; // Import useReactToPrint hook
 
 
 export const CheckOutPayment = () => {
@@ -142,7 +141,7 @@ export const CheckOutPayment = () => {
                 <option value="Walk in Customer" >Walk in Customer</option>
                 {customers !== undefined && customers.map((customer) => (
                   (customer.userId === user.id ) && (
-                    <option value={customer.customer}>{customer.customer} : {customer.loyaltyPoint} Points</option>
+                    <option value={customer.customer}>{customer.customer}</option>
                     ))
                   )}
           </select>

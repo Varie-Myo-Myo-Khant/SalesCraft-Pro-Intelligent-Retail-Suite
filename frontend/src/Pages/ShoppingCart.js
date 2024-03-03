@@ -52,7 +52,7 @@ export const ShoppingCart = () => {
             </Col>
 
             <Col className="cartinfo">
-              <h3>{cart.productName}</h3> 
+              <h4>{cart.productName}</h4> 
               <Row className="priceRow">
                 <Col>
                    <p>$ {cart.productPrice * cart.quantity}</p>

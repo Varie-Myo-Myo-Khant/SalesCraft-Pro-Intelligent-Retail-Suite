@@ -35,8 +35,7 @@ export const Profile = () => {
 useEffect(() => {
   setFormData({
     username: profile.username,
-    email: profile.email,
-    password: profile.password,
+    email: profile.email, 
     userImage: profile.userImage,
     shopName: profile.shopName,
     shopLogo: profile.shopLogo,

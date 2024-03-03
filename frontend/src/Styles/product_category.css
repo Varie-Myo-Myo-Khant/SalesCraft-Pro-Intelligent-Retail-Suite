@@ -119,7 +119,7 @@
     display: grid!important;
     gap: 20px;
     grid-template-columns: repeat(auto-fill,minmax(220px,1fr));
-    max-height: 68vh;
+    max-height: 55vh;
     overflow: auto;
 }
 .productCard {

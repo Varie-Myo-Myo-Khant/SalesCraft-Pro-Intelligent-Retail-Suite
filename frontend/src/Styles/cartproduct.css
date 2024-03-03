@@ -43,13 +43,13 @@ button.closeBtn.btn.btn-primary {
 
 /* for category carousel */
 .BtnProps{
-    border: 1px solid var(--main-black);
+    border: 1px solid var(--main-two);
     width: 35px;
     height: 35px;
     border-radius: 50%;
     font-size: 16px;
     align-self: center !important;
-    color: var(--main-black);
+    color: var(--main-two);
     line-height: 1em;
 }
 
@@ -58,14 +58,17 @@ button.closeBtn.btn.btn-primary {
     color: var(--main-white); 
 }
 
+
 .smallcategory{
     background-color: var(--light-grey); 
     border-radius: 10px; 
     padding: 10px;
-    width: 100px;
-    margin: 10px 5px !important;
+    width: 130px; 
+    margin: 0px 5px !important;
+    color: var(--main-two);
 }
 
 .smallcategory:click, .smallcategory:hover{
      background-color: var(--main-two); 
 }
+

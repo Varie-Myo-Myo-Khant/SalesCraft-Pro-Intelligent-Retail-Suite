@@ -1,22 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {Container,Row,Col, Table,Modal, Button, Form } from 'react-bootstrap';
-import { sessionCreate,setSessionId, clearValues, getSessions, deleteSession } from '../Slice/sessionSlice';
+import { sessionCreate,setSessionId, getSessions, deleteSession } from '../Slice/sessionSlice';
 import { toast } from "react-toastify";
 import { useNavigate  } from 'react-router-dom';
-import { FaMinus,FaUserCircle } from 'react-icons/fa';
-import '../Styles/session.css'
+import { FaTrashAlt,FaChartLine,FaUserCircle,FaShoppingCart} from 'react-icons/fa';
+import '../Styles/session.css';
+import { getProfile } from '../Slice/profileSlice';
+import { getOrders } from "../Slice/orderSlice";
+
 export const Session = () => {
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [showStartModal, setShowStartModal] = useState(false);
-  const { user } = useSelector((store) => store.auth);
+  const { user } = useSelector((store) => store.auth); 
+   const { orders } = useSelector((state) => state.order);
+  const { profile } = useSelector((store) => store.profile);
   const [openingCash, setOpeningCash] = useState(0);
-    const { sessions,sessionId} = useSelector((state) => state.session);
+  const { sessions,sessionId} = useSelector((state) => state.session);
+
   let sessionList=1
 
   useEffect(() => {
+    dispatch(getProfile(user.id));
+  }, [dispatch, user.id]);
+
+  useEffect(() => {
     dispatch(getSessions());
+     dispatch(getOrders());
   }, [dispatch]);
 
   const handleStartSession = () => {
@@ -27,6 +39,8 @@ export const Session = () => {
     setShowStartModal(false);
   };
 
+  // Filter orders by userId
+  const userOrders = orders.filter(order => order.userId === user.id);
 
  const handleStartSessionSubmit = (e) => {
     e.preventDefault();
@@ -43,7 +57,6 @@ export const Session = () => {
       });
   };
 
-  
 
   const remove = (sessionId) => {
     console.log("from remove",sessionId)
@@ -71,18 +84,44 @@ export const Session = () => {
   return `${formattedDate} ${formattedTime}`;
 }
 
-console.log(sessionId)
+// Calculate total sales from sessions with the same userId
+  const totalSales = sessions
+    .filter((session) => session.userId === user.id && session.totalSales !== null)
+    .reduce((acc, session) => acc + session.totalSales, 0);
+
+
   return (
     <Container className='sessionMain'>
-     <Row>
-      <Col md={5} className='sessionCard'>
-        
-      <span> <FaUserCircle /> Shop Name</span>
-      <span>Current Balance:</span>
+     <Row className="statistic-layout">
+      
+      <Col md={5} className='statistics'>
+      <span className="statistic-title"> 
+      {profile.shopLogo !== null && profile.shopLogo ? (
+                <img src={profile.shopLogo} className="userImg" alt={profile.shopName} />
+              ) : (
+                <FaUserCircle className="menu-icon" />   
+              )}
+       <span style={{ marginLeft: '10px' }}> {profile.shopName}</span>
+    </span>
+      <b>Address : {profile.shopAddress}</b>
       <Button className='sessionBtn' onClick={sessionId ?() => navigate('/order'): handleStartSession }>
         {sessionId ? 'Continue Selling' : 'Start New Session'}
       </Button>
       </Col>
+       <Col md={3} className="statistics">
+          <span className="statistic-title">
+            <FaChartLine />Total Sales
+            </span>
+           <span className="statistic-details"> </span>
+          <span className="statistic-number">Ks {totalSales.toLocaleString()} </span>
+         
+        </Col>
+         <Col md={2} className="statistics">
+          <span className="statistic-title"><FaShoppingCart />  Orders</span>
+            <span className="statistic-details"> </span>
+          <span className="statistic-number">{userOrders.length}</span>
+        
+        </Col>
       </Row>
 
       <Modal show={showStartModal} onHide={handleStartModalClose}>
@@ -92,7 +131,7 @@ console.log(sessionId)
         <Modal.Body>
           <Form onSubmit={handleStartSessionSubmit}>
             <Form.Group controlId="openingCash">
-              <Form.Label>Enter Opening Cash</Form.Label>
+              <Form.Label  className='modalLabel'>Enter Opening Cash</Form.Label>
               <Form.Control type="number" name='openingCash' value={openingCash} onChange={handleInputChange} required />
             </Form.Group>
             <Button variant="primary" type="submit">Start New Session</Button>
@@ -103,19 +142,20 @@ console.log(sessionId)
      
 
       <Row>
-        <h2>Sales History</h2>
-        <Table striped bordered hover>
+        <h3>Sales History</h3>
+        <div className='sessionDiv'>
+        <Table hover>
           <thead>
           <tr>
             <th>No</th>
-             <th>Start Time</th>
-            <th>End Time</th>
+             <th>Date</th>
+            
             <th>Opening Cash</th>
             <th>Closing Cash</th>
-            <th>Total Cash</th>
+            <th>Total Amount</th>
             <th>Cash in Hand</th>
-            <th>Can in Bank</th>
-             <th><FaMinus/></th>
+            <th>Cash in Bank</th>
+             <th><FaTrashAlt/></th>
           </tr>
         </thead>
         <tbody>
@@ -124,18 +164,18 @@ console.log(sessionId)
             <tr key={session.id}>
             <td>{sessionList++}</td>
             <td>{formatDateTime(session.startTime)}</td>
-             <td>{formatDateTime(session.endTime)}</td>
-              <td>{session.openingCash}</td>
-              <td>{session.closingCash}</td>
-              <td>{session.totalSales}</td>
-              <td>{session.cashInHand}</td>
-              <td>{session.cashInBank}</td>
-              <td type='button' onClick={() => remove(session.id)}><FaMinus/></td>
+              <td>{session.openingCash.toLocaleString()}</td>
+              <td>{session.closingCash && session.closingCash.toLocaleString()}</td>
+              <td>{ session.closingCash && session.totalSales.toLocaleString()}</td>
+              <td>{session.closingCash && session.cashInHand.toLocaleString()}</td>
+              <td>{session.closingCash && session.cashInBank.toLocaleString()}</td>
+              <td type='button' onClick={() => remove(session.id)}><FaTrashAlt/></td>
             </tr>
           ))
         )}
           </tbody>
         </Table>
+        </div>
       </Row>
     </Container>
   );
